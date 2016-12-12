@@ -84,11 +84,13 @@ public class Main {
         niveau.add(piece);
     }
 
-    public static Pieces trouverPieceParNom(String piece) { //JE BOSSE DESSUS W8 & SEE
-        for(piece : niveau) {
-            if(niveau[i].getNom() == piece.getNom) {
-                return piece;
+    public static Pieces trouverPieceParNom(String nomPiece) {
+        Pieces bonnePiece = null;
+        for(Pieces piece : niveau) {
+            if(piece.getNom() == nomPiece) {
+                bonnePiece = piece;
             }
         }
+        return bonnePiece;
     }
 }
