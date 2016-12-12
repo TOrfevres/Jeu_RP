@@ -5,13 +5,13 @@ package com.environment;
  */
 public abstract class Objets {
     private String nom;
-    private Type type;
+    private Types types;
     private String description;
     private Pieces piece;
 
-    public Objets(String nom, Type type, String description, Pieces piece){
+    public Objets(String nom, Types types, String description, Pieces piece){
         this.nom = nom;
-        this.type = type;
+        this.types = types;
         this.description = description;
         this.piece = piece;
     }
@@ -20,8 +20,8 @@ public abstract class Objets {
         return this.nom;
     }
 
-    public Type getType(){
-        return this.type;
+    public Types getTypes(){
+        return this.types;
     }
 
     public String getDescription(){

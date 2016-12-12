@@ -2,7 +2,7 @@ package com.entities;
 
 import com.environment.Objets;
 import com.environment.Pieces;
-import com.environment.Type;
+import com.environment.Types;
 
 /**
  * Created by user on 12/12/2016.
@@ -28,9 +28,9 @@ public class Joueurs extends Personnages {
     }
 
     public void utilisationObjet(Objets objet) {
-        if(objet.getType() == Type.Inforamatif) {
+        if(objet.getTypes() == Types.Inforamatif) {
             objet.getDescription();
-        } else if(objet.getType() == Type.Obtenable) {
+        } else if(objet.getTypes() == Types.Obtenable) {
             //Interface objet avec boolean (on rammasse)
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
@@ -38,7 +38,7 @@ public class Joueurs extends Personnages {
                 //setPointsVie(this.getPointsVie() + objet.getValeurSoin());
                 //objet.setNombre(objet.getNombre() - 1);
             }
-        } else if(objet.getType() == Type.Clés) {
+        } else if(objet.getTypes() == Types.Clés) {
 
         }
     }
