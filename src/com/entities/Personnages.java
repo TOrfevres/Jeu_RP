@@ -5,7 +5,7 @@ import com.environment.Pieces;
 /**
  * Created by user on 12/12/2016.
  */
-public class Personnages {
+public abstract class Personnages {
     private String name;
     private int pointsVie;
     private int pointsAttaque;
