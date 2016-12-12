@@ -1,5 +1,6 @@
 package com.entities;
 
+import com.environment.Consommables;
 import com.environment.Objets;
 import com.environment.Pieces;
 import com.environment.Types;
@@ -34,7 +35,7 @@ public class Joueurs extends Personnages {
             //Interface objet avec boolean (on rammasse)
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
-            } else if (objet instanceof Consommable) {
+            } else if (objet instanceof Consommables) {
                 //setPointsVie(this.getPointsVie() + objet.getValeurSoin());
                 //objet.setNombre(objet.getNombre() - 1);
             }

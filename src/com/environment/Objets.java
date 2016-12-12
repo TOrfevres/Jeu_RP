@@ -9,9 +9,9 @@ public abstract class Objets {
     private String description;
     private Pieces piece;
 
-    public Objets(String nom, Types types, String description, Pieces piece){
+    public Objets(String nom, Types type, String description, Pieces piece){
         this.nom = nom;
-        this.types = types;
+        this.types = type;
         this.description = description;
         this.piece = piece;
     }

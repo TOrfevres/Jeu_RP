@@ -7,6 +7,7 @@ import com.environment.Pieces;
  */
 public abstract class Personnages {
     private String name;
+    private int maxVie;
     private int pointsVie;
     private int pointsAttaque;
     private int pointsDefense;
@@ -14,6 +15,7 @@ public abstract class Personnages {
 
     public Personnages(String name, int pointsVie, int pointsAttaque, int pointsDefense, Pieces pieceActuelle) {
         this.name = name;
+        this.maxVie = pointsVie;
         this.pointsVie = pointsVie;
         this.pointsAttaque = pointsAttaque;
         this.pointsDefense = pointsDefense;
