@@ -35,7 +35,8 @@ public class Joueurs extends Personnages {
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
             } else if (objet instanceof Consommable) {
-                //setPointsVie(this.getPointsVie() + objet.);
+                //setPointsVie(this.getPointsVie() + objet.getValeurSoin());
+                //objet.setNombre(objet.getNombre() - 1);
             }
         } else if(objet.getType() == Type.Clés) {
 
