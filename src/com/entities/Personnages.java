@@ -19,4 +19,32 @@ public class Personnages {
         this.pointsDefense = pointsDefense;
         this.pieceActuelle = pieceActuelle;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getPointsVie() {
+        return this.pointsVie;
+    }
+
+    public int getPointsAttaque() {
+        return this.pointsAttaque;
+    }
+
+    public int getPointsDefense() {
+        return this.pointsDefense;
+    }
+
+    public Pieces getPieceActuelle() {
+        return this.getPieceActuelle();
+    }
+
+    public void setPieceActuelle(Pieces piece) {
+        this.pieceActuelle = piece;
+    }
+
+    public void setPointsVie(int pointsVie) {
+        this.pointsVie = pointsVie;
+    }
 }
