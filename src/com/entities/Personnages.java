@@ -45,6 +45,6 @@ public class Personnages {
     }
 
     public void setPointsVie(int pointsVie) {
-        this.pointsVie = pointsVie;
+        this.pointsVie = pointsVie; //**
     }
 }
