@@ -1,0 +1,12 @@
+package com.environment.Objets;
+
+import com.environment.Pieces;
+
+/**
+ * Created by user on 12/12/2016.
+ */
+public class Armes extends Objets {
+    public Armes(String nom, String type, String description, Pieces piece) {
+        super(nom, type, description, piece);
+    }
+}
