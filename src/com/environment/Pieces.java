@@ -10,4 +10,21 @@ public class Pieces {
     private String nom;
     private String description;
     private Map<String,Pieces> sorties = new HashMap<String, Pieces>();
+
+    public Pieces(String nom, String description) {
+        this.nom = nom;
+        this.description = description;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setSorties() {
+
+    }
 }
