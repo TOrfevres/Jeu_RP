@@ -37,7 +37,7 @@ public class Personnages {
     }
 
     public Pieces getPieceActuelle() {
-        return this.getPieceActuelle();
+        return this.pieceActuelle;
     }
 
     public void setPieceActuelle(Pieces piece) {

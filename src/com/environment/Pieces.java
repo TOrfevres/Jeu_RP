@@ -25,6 +25,6 @@ public class Pieces {
     }
 
     public void setSorties() {
-
+        sdfsfsdf;
     }
 }
