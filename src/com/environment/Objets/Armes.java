@@ -1,6 +1,5 @@
 package com.environment.Objets;
 
-import com.environment.Pieces;
 
 /**
  * Created by user on 12/12/2016.
