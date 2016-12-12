@@ -123,4 +123,14 @@ public class Joueurs extends Personnages {
             System.out.println("Vous ne pouvez pas ramasser cet objet !");
         }
     }
+
+    public int getPointsAttaque() {
+        int maxDegats = 0;
+        for(Objets objet : inventaire) {
+            if(objet instanceof Armes && ((Armes) objet).getDegats() > maxDegats) {
+                maxDegats = ((Armes) objet).getDegats();
+            }
+        }
+        return super.getPointsAttaque() + maxDegats;
+    }
 }
