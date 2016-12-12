@@ -80,6 +80,7 @@ public class Main {
 
     }
 
+    //Il faut placer toutes les nouvelles pieces dans cette collection "niveau"
     public static void ajouterPieceAuNiveau(Pieces piece) {
         niveau.add(piece);
     }
