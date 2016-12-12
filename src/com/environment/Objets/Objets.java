@@ -10,9 +10,9 @@ import java.lang.reflect.Type;
  */
 public abstract class Objets {
     private String nom;
-    private Types type;
     private String description;
-    private Pieces piece;
+    public Pieces piece;
+    public Types type;
 
     public Objets(String nom, String type, String description, String piece){
         this.nom = nom;
