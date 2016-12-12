@@ -91,6 +91,7 @@ public class Joueurs extends Personnages {
 
     public void changerPiece(Pieces piece) {
         System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
+        System.out.println("     " + piece.getDescription());
         this.setPieceActuelle(piece);
     }
 
@@ -101,16 +102,16 @@ public class Joueurs extends Personnages {
     public void utilisationObjet(Objets objet) {
         if(objet.getType() == Types.Inforamatif) {
             objet.getDescription();
-        } else if(objet.getType() == Types.Obtenable) {
-            //Interface objet avec boolean (on rammasse)
+        } else if(objet.getType() == Types.Obtenable && inventaire.contains(objet)) {
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
             } else if (objet instanceof Consommables) {
-                //setPointsVie(this.getPointsVie() + objet.getValeurSoin());
-                //objet.setNombre(objet.getNombre() - 1);
+                System.out.println("Vous utilisez une potion et vous regagnez toute votre vie.");
+                setPointsVie(this.getPointsVieMax());
+                inventaire.remove(objet);
             }
         } else if(objet.getType() == Types.Clés) {
-
+            System.out.println("Vous ne pouvez pas utiliser cet objet !");
         }
     }
 

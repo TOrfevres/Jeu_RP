@@ -85,12 +85,12 @@ public class Main {
     }
 
     public static Pieces trouverPieceParNom(String nomPiece) {
-        Pieces bonnePiece = null;
+        Pieces pieceRecherche = null;
         for(Pieces piece : niveau) {
             if(piece.getNom() == nomPiece) {
-                bonnePiece = piece;
+                pieceRecherche = piece;
             }
         }
-        return bonnePiece;
+        return pieceRecherche;
     }
 }

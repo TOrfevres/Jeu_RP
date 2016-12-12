@@ -30,6 +30,10 @@ public abstract class Personnages {
         return this.pointsVie;
     }
 
+    public int getPointsVieMax() {
+        return this.maxVie;
+    }
+
     public int getPointsAttaque() {
         return this.pointsAttaque;
     }
