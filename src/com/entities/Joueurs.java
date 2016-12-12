@@ -106,7 +106,7 @@ public class Joueurs extends Personnages {
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
             } else if (objet instanceof Consommables) {
-                System.out.println("Vous utilisez une potion et vous regagnez toute votre vie.");
+                System.out.println("Vous utilisez une potion et vous regagnez toute votre vie. (" + this.getPointsVie() + "->" + this.getPointsVieMax() + ")");
                 setPointsVie(this.getPointsVieMax());
                 inventaire.remove(objet);
             }
@@ -124,6 +124,7 @@ public class Joueurs extends Personnages {
         }
     }
 
+    @Override
     public int getPointsAttaque() {
         int maxDegats = 0;
         for(Objets objet : inventaire) {
