@@ -14,5 +14,5 @@ public class Armes extends Objets { //penis
 
     public int getDegats() {
         return this.degats;
-    }
+    }//k,k
 }
