@@ -91,7 +91,7 @@ public class Main {
 
         while (retry) {
             try { // D:/Users/Kirian/Bureau/csvtest.csv
-                BufferedReader br = new BufferedReader(new FileReader(csvFile)); // lolilol
+                BufferedReader br = new BufferedReader(new FileReader(csvFile)); // loliloll
                 int numPerso = 0;
                 int nbrPerso=-1;
                 int annuler = 0;
