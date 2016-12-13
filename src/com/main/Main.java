@@ -165,4 +165,8 @@ public class Main {
         }
         return pieceRecherche;
     }
+
+    public static void constructionNiveau() {
+
+    }
 }

@@ -1,10 +1,10 @@
 package com.entities;
 
 import com.environment.*;
-import com.environment.Objets.Armes;
-import com.environment.Objets.Consommables;
-import com.environment.Objets.Objets;
-import com.environment.Objets.Types;
+import com.environment.items.Armes;
+import com.environment.items.Consommables;
+import com.environment.items.Objets;
+import com.environment.items.Types;
 
 import java.util.Collection;
 import java.util.Iterator;

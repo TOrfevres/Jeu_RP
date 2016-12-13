@@ -1,9 +1,7 @@
-package com.environment.Objets;
+package com.environment.items;
 
 import com.environment.Pieces;
 import com.main.Main;
-
-import java.lang.reflect.Type;
 
 /**
  * Created by user on 12/12/2016.

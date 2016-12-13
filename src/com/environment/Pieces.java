@@ -29,11 +29,9 @@ public class Pieces {
 
     //A appeller une fois que toutes les pieces ont été crées et l'appeller UNE fois par piece lors du chargement du niveau.
     public void setSorties() {
-        for(Pieces piece : Main.niveau) {
-            for(/*Chaque ligne décrivant une sortie*/) {
-                sorties.put("" /*Le nom du passage*/, Main.trouverPieceParNom("" /*Le nom de la piece*/));
-                //COMMENT ON FAIT POUR DETERMINER SI UNE SORTIE NECESSITE UNE CLE ?
-            }
+        for(/*Chaque ligne décrivant une sortie*/) {
+            sorties.put("" /*Le nom du passage*/, Main.trouverPieceParNom("" /*Le nom de la piece*/));
+            //Si il y a un chiffre en fin de ligne on créer la clé associé à ce passage
         }
     }
 }

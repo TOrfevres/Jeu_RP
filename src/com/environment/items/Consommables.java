@@ -1,4 +1,4 @@
-package com.environment.Objets;
+package com.environment.items;
 
 /**
  * Created by user on 12/12/2016.
