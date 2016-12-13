@@ -9,11 +9,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Scanner;
 
+
 /**
  * Created by user on 12/12/2016.
  */
 public class Main {
-    /*public static Collection<Pieces> niveau = new Collection<Pieces>() {
+    public static Collection<Pieces> niveau = new Collection<Pieces>() {
         @Override
         public int size() {
             return 0;
@@ -78,26 +79,35 @@ public class Main {
         public void clear() {
 
         }
-    };*/
+    };
+
+    static String csvFile = "";
+    static Scanner sc;
+    static String line = null;                                     //Peut importe la valeur
+    static String cvsSplitBy = ";";                                // Separation des caracteres
+    static boolean retry = true;
 
     public static void main(String[] args) {
-        String line = null;                                     //Peut importe la valeur
-        String cvsSplitBy = ";";                                // Separation des caracteres
+
         FileReader fr;
 
-        //System.out.println("Saissir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
-        String csvFile="";
-        Scanner sc;
-        boolean retry=true;
-/*
+
+        selectionMonde();
+        selectionPersonnage();
+    }
+
+
+    public static void  selectionPersonnage(){
+        System.out.println();
+        System.out.println("Saisir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
+
         while (retry) {
             try { // D:/Users/Kirian/Bureau/csvtest.csv
-                BufferedReader br = new BufferedReader(new FileReader(csvFile)); // loliloll
+                BufferedReader br = new BufferedReader(new FileReader(csvFile));
                 int numPerso = 0;
                 int nbrPerso=-1;
                 int annuler = 0;
                 int persoAChoisir = 0;
-
                 while (br.readLine() != null) {
                     nbrPerso++;
                 }
@@ -151,10 +161,6 @@ public class Main {
         }
     }
 
-    //Il faut placer toutes les nouvelles pieces dans cette collection "niveau"
-    public static void ajouterPieceAuNiveau(Pieces piece) {
-        niveau.add(piece);
-    }
 
     public static Pieces trouverPieceParNom(String nomPiece) {
         Pieces pieceRecherche = null;
@@ -166,19 +172,23 @@ public class Main {
         return pieceRecherche;
     }
 
-    public static void constructionNiveau() {*/
-        String cheminJeu = "";
-        String nomJeu = "";
-        String cheminCarte ="";
-        String cheminObjet="";
-        String cheminMonstre="";
-        String descriptionJeu ="";
-        String cheminSimple="";
-        String ligne="";
-        //boolean retry = true;
-        //Scanner sc;
-        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
+    public static void constructionNiveau() {
 
+    }
+
+
+    public static void selectionMonde(){
+            String cheminJeu = "";
+            String nomJeu = "";
+            String cheminCarte = "";
+            String cheminObjet = "";
+            String cheminMonstre = "";
+            String descriptionJeu = "";
+            String cheminSimple = "";
+            String ligne = "";
+            //boolean retry = true;
+            //Scanner sc;
+            System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
         while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
@@ -197,7 +207,7 @@ public class Main {
                 while ((descriptionJeu = br.readLine()) != null) {
                     System.out.println(descriptionJeu);
                 }
-                cheminSimple = cheminJeu.substring(0,cheminJeu.lastIndexOf('/')+1);
+                cheminSimple = cheminJeu.substring(0, cheminJeu.lastIndexOf('/') + 1);
                 cheminCarte = cheminSimple + cheminCarte;
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
@@ -211,32 +221,38 @@ public class Main {
                 BufferedReader objet = new BufferedReader(new FileReader(cheminObjet));
                 BufferedReader carte = new BufferedReader(new FileReader(cheminCarte));
 
-                while ((ligne = carte.readLine()) != null) {
-                    int i = 0;
-                    if (ligne.equals("<")){
-                        String nom = carte.readLine();
-                        nom = nom.substring(2,(nom.length()-2));
-                        System.out.println(nom);
-                    }
-                    if (ligne.equals(">")){
-                        i++;
 
+                while ((ligne = carte.readLine()) != null) {
+                    if (ligne.equals("<")) {
+                        String nom = carte.readLine();
+                        nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
+
+                        carte.readLine();   //saute une ligne
+
+                        String desc = carte.readLine();                     //recup toutes la desc
+                        while (!(ligne = carte.readLine()).equals("\\")) {
+                            desc = desc + "\r\n" + ligne;
+                        }
+                        niveau.add(new Pieces(nom, desc));              //creee l'entitee
                     }
                 }
 
-                retry=false;
+                retry = false;
             } catch (Exception FileNotFoundException) { // Rajouter des throw ????
                 sc = new Scanner(System.in);
                 System.out.print(">");
                 cheminJeu = sc.next();
             }
-        }
 
+
+        }
+        retry =true;
         //Algo trouvant le nom de chaque salle
-            //Créer une piece pour chaque nom avec son nom et sa description
-            //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
+        //Créer une piece pour chaque nom avec son nom et sa description
+        //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
 
         //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
-            //Appliquer la méthode "setSorties()" à l'objet
+        //Appliquer la méthode "setSorties()" à l'objet
     }
+
 }
