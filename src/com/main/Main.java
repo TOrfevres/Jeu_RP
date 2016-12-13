@@ -1,5 +1,6 @@
 package com.main;
 
+import com.entities.Joueurs;
 import com.environment.Pieces;
 
 import java.io.BufferedReader;
@@ -138,12 +139,11 @@ public class Main {
                         br.readLine(); // skip les ligne contenant les perso non désirée
                     }
                     String[] persoSelect = br.readLine().split(";");
-                    System.out.println("Vous avez sélectionné : " +persoSelect[0]);
-                    // Suffit de créée instance du style:
-                    // Personnage perso = new Personnage(persoSelect[0], persoSelect[1],...)
+                    System.out.println("Vous avez sélectionné : " + persoSelect[0]);
+                    Joueurs joueur = new Joueurs(persoSelect[0], Integer.decode(persoSelect[2]), Integer.decode(persoSelect[3]), null, persoSelect[1], Integer.decode(persoSelect[5]), Integer.decode(persoSelect[4]));
                 }
 
-            } catch (Exception FileNotFoundException) { // Rajouter des throw ????
+            } catch (Exception FileNotFoundException) { //Rajouter des throw ????
                 sc = new Scanner(System.in);
                 System.out.print(">");
                 csvFile = sc.next();

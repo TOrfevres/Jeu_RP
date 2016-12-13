@@ -15,6 +15,7 @@ import java.util.Iterator;
 public class Joueurs extends Personnages {
     private String metier;
     private int placesInventaire;
+    private int pointsDefense;
     private Collection<Objets> inventaire = new Collection<Objets>() {
         @Override
         public int size() {
@@ -82,21 +83,23 @@ public class Joueurs extends Personnages {
         }
     };
 
-    public Joueurs(String name, int pointsVie, int pointsAttaque, int pointsDefense, Pieces pieceActuelle, String metier, int placesInventaire) {
-        super(name, pointsVie, pointsAttaque, pointsDefense, pieceActuelle);
+    public Joueurs(String name, int pointsVie, int pointsAttaque, Pieces pieceActuelle, String metier, int placesInventaire, int pointsDefense) {
+        super(name, pointsVie, pointsAttaque, pieceActuelle);
 
         this.metier = metier;
         this.placesInventaire = placesInventaire;
+        this.pointsDefense = pointsDefense;
     }
 
-    public void changerPiece(Pieces piece) {
+    @Override
+    public void setPieceActuelle(Pieces piece) {
         System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
         System.out.println("     " + piece.getDescription());
         this.setPieceActuelle(piece);
     }
 
-    public void description() {
-        System.out.println(this.getName() + " - " + this.metier + " - " + this.getPointsVie() + " HP - Déf: " + this.getPointsDefense() + " / Atk: " + this.getPointsAttaque() + " - " + this.placesInventaire + "places d'objet");
+    public int getPointsDefense() {
+        return this.pointsDefense;
     }
 
     public void utilisationObjet(Objets objet) {
@@ -116,11 +119,39 @@ public class Joueurs extends Personnages {
     }
 
     public void ajouterObjetAInventaire(Objets objet) {
-        if(objet.getType() == Types.Obtenable) {
+        if(objet.getType() == Types.Obtenable && inventaire.size() < placesInventaire) {
             inventaire.add(objet);
             System.out.println("Vous avez ramasser un(e): " + objet.getNom());
-        } else {
+        } else if (objet.getType() != Types.Obtenable){
             System.out.println("Vous ne pouvez pas ramasser cet objet !");
+        } else if(inventaire.size() >= placesInventaire){
+            System.out.println("Votre inventaire est plein ...");
+        }
+    }
+
+    public void enleverObjetAInventaire(Objets objet) {
+        if(inventaire.contains(objet) && objet.getType() != Types.Clés) {
+            System.out.println("Vous venez de détruire " + objet.getNom());
+            inventaire.remove(objet);
+        } else if(objet.getType() == Types.Clés) {
+            System.out.println("Ceci vous sera utile, vous ne pouvez pas le détruire !");
+        } else if(!inventaire.contains(objet)){
+            System.out.println("Erreur : Cet objet n'est pas dans l'inventaire.");
+        }
+    }
+
+    public void attaquer(Monstres monstre) {
+        while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
+            System.out.println("Vous affligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
+            monstre.setPointsVie(monstre.getPointsVie() - this.getPointsAttaque());
+            monstre.attaque(this);
+        }
+        if(super.getPointsVie() <= 0) {
+            System.out.println("Quel cauchemar ! Vous avez perdu la vie ...");
+            System.exit(0);
+        } else if(monstre.getPointsVie() <= 0) {
+            System.out.println("Vous avez vaincu " + monstre.getNom() + " !");
+            System.out.println("Il vous reste " + super.getPointsVie() + " HP.");
         }
     }
 

@@ -6,24 +6,22 @@ import com.environment.Pieces;
  * Created by user on 12/12/2016.
  */
 public abstract class Personnages {
-    private String name;
+    private String nom;
     private int maxVie;
     private int pointsVie;
     private int pointsAttaque;
-    private int pointsDefense;
     private Pieces pieceActuelle;
 
-    public Personnages(String name, int pointsVie, int pointsAttaque, int pointsDefense, Pieces pieceActuelle) {
-        this.name = name;
+    public Personnages(String nom, int pointsVie, int pointsAttaque, Pieces pieceActuelle) {
+        this.nom = nom;
         this.maxVie = pointsVie;
         this.pointsVie = pointsVie;
         this.pointsAttaque = pointsAttaque;
-        this.pointsDefense = pointsDefense;
         this.pieceActuelle = pieceActuelle;
     }
 
-    public String getName() {
-        return this.name;
+    public String getNom() {
+        return this.nom;
     }
 
     public int getPointsVie() {
@@ -36,10 +34,6 @@ public abstract class Personnages {
 
     public int getPointsAttaque() {
         return this.pointsAttaque;
-    }
-
-    public int getPointsDefense() {
-        return this.pointsDefense;
     }
 
     public Pieces getPieceActuelle() {
