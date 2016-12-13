@@ -250,17 +250,17 @@ public class Main {
     }
 
     public static void selectionMonde(){
-            String cheminJeu = "";
-            String nomJeu = "";
-            String cheminCarte = "";
-            String cheminObjet = "";
-            String cheminMonstre = "";
-            String descriptionJeu = "";
-            String cheminSimple = "";
+        String cheminJeu = "";
+        String nomJeu = "";
+        String cheminCarte = "";
+        String cheminObjet = "";
+        String cheminMonstre = "";
+        String descriptionJeu = "";
+        String cheminSimple = "";
 
-            //boolean retry = true;
-            //Scanner sc;
-            System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
+        //boolean retry = true;
+        //Scanner sc;
+        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
         while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
