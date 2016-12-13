@@ -27,6 +27,10 @@ public class Pieces {
         return this.description;
     }
 
+    public Map<String, Pieces> getSorties() {
+        return this.sorties;
+    }
+
     /*A appeller une fois que toutes les pieces ont été crées et l'appeller UNE fois par piece lors du chargement du niveau.
     public void setSorties() {
         for(Chaque ligne décrivant une sortie) {

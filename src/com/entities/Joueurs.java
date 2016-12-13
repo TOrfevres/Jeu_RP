@@ -1,10 +1,8 @@
 package com.entities;
 
 import com.environment.*;
-import com.environment.items.Armes;
-import com.environment.items.Consommables;
-import com.environment.items.Objets;
-import com.environment.items.Types;
+import com.environment.items.*;
+import com.main.Main;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -91,13 +89,32 @@ public class Joueurs extends Personnages {
         this.pointsDefense = pointsDefense;
     }
 
-    /*public void changerPiece(Pieces piece) {
-        if() {
-            System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
-            System.out.println("     " + piece.getDescription());
-            this.setPieceActuelle(piece);
+    public void changerPiece(Pieces piece) {
+        if(this.getPieceActuelle().getSorties().containsValue(piece)) {
+            Clés cleAssocie = null;
+            for(Clés cle : Main.porteCles) {
+                for(String nomPassage : this.getPieceActuelle().getSorties().keySet()) {
+                    if(cle.getPassageAssocie().equals(nomPassage)) {
+                        cleAssocie = cle;
+                    }
+                }
+            }
+
+            if(cleAssocie == null) {
+                System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
+                System.out.println("     " + piece.getDescription());
+                this.setPieceActuelle(piece);
+            } else if(cleAssocie != null && inventaire.contains(cleAssocie)) {
+                System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
+                System.out.println("     " + piece.getDescription());
+                this.setPieceActuelle(piece);
+            } else if(cleAssocie != null && !inventaire.contains(cleAssocie)) {
+                System.out.println("Ce passage semble bloqué. Il doit y avoir une clé quelque part ...");
+            }
+        } else {
+            System.out.println("Erreur : Cette piece n'est pas liée à celle où vous êtes.");
         }
-    } */
+    }
 
     public int getPointsDefense() {
         return this.pointsDefense;
@@ -152,7 +169,7 @@ public class Joueurs extends Personnages {
             System.exit(0);
         } else if(monstre.getPointsVie() <= 0) {
             System.out.println("Vous avez vaincu " + monstre.getNom() + " !");
-            System.out.println("Il vous reste " + super.getPointsVie() + " HP.");
+            System.out.println("Il vous reste " + this.getPointsVie() + " HP.");
         }
     }
 
