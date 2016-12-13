@@ -132,8 +132,16 @@ public class Joueurs extends Personnages {
                 setPointsVie(this.getPointsVieMax());
                 inventaire.remove(objet);
             }
+        } else if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {
+            if(objet instanceof Armes) {
+                System.out.println("Vous avez ramassé une nouvelle arme : " + objet.getNom());
+                ajouterObjetAInventaire(objet);
+            } else if (objet instanceof Consommables) {
+                System.out.println("Vous avez ramassé une potion !");
+                ajouterObjetAInventaire(objet);
+            }
         } else if(objet.getType() == Types.Clés) {
-            System.out.println("Vous ne pouvez pas utiliser cet objet !");
+                System.out.println("Vous ne pouvez pas utiliser cet objet !");
         }
     }
 

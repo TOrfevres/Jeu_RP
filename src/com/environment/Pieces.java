@@ -34,7 +34,4 @@ public class Pieces {
     public void setSorties(String nomSortie, Pieces destSortie){
         sorties.put(nomSortie, destSortie);
     }
-
-    //A appeller une fois que toutes les pieces ont été crées et l'appeller UNE fois par piece lors du chargement du niveau.
-
 }
