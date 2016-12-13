@@ -4,6 +4,7 @@ import com.environment.*;
 import com.environment.items.*;
 import com.main.Main;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -173,14 +174,24 @@ public class Joueurs extends Personnages {
         }
     }
 
-    @Override
-    public int getPointsAttaque() {
-        int maxDegats = 0;
-        for(Objets objet : inventaire) {
-            if(objet instanceof Armes && ((Armes) objet).getDegats() > maxDegats) {
-                maxDegats = ((Armes) objet).getDegats();
+    public int getNombrePotionDansInventaire() {
+        int nombreDePotion = 0;
+        for (Objets objet : inventaire) {
+            if (objet instanceof Consommables) {
+                nombreDePotion++;
             }
         }
-        return super.getPointsAttaque() + maxDegats;
+        return nombreDePotion;
+    }
+
+    @Override
+    public int getPointsAttaque () {
+            int maxDegats = 0;
+            for (Objets objet : inventaire) {
+                if (objet instanceof Armes && ((Armes) objet).getDegats() > maxDegats) {
+                    maxDegats = ((Armes) objet).getDegats();
+                }
+            }
+            return super.getPointsAttaque() + maxDegats;
     }
 }

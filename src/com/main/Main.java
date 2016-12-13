@@ -1,8 +1,10 @@
 package com.main;
 
 import com.entities.Joueurs;
+import com.entities.Monstres;
 import com.environment.Pieces;
 import com.environment.items.Clés;
+import com.environment.items.Objets;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -145,12 +147,145 @@ public class Main {
 
         }
     };
+    public static Collection<Objets> tousLesObjets = new Collection<Objets>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<Objets> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return null;
+        }
+
+        @Override
+        public boolean add(Objets objets) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends Objets> c) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    };
+    public static Collection<Monstres> tousLesMonstres = new Collection<Monstres>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<Monstres> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return null;
+        }
+
+        @Override
+        public boolean add(Monstres monstres) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends Monstres> c) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    };
 
     static String csvFile = "";
     static Scanner sc;
     static String line = null;                                     //Peut importe la valeur
     static String cvsSplitBy = ";";                                // Separation des caracteres
     static boolean retry = true;
+    static Joueurs joueur;
 
     public static void main(String[] args) {
         System.out.println("  << JMistery >>");
@@ -164,7 +299,6 @@ public class Main {
     public static void  selectionPersonnage(){
         System.out.println();
         System.out.println("Saisir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
-
         while (retry) {
             try { // D:/Users/Kirian/Bureau/csvtest.csv
                 BufferedReader br = new BufferedReader(new FileReader(csvFile));
@@ -214,7 +348,7 @@ public class Main {
                     }
                     String[] persoSelect = br.readLine().split(";");
                     System.out.println("Vous avez sélectionné : " + persoSelect[0]);
-                    Joueurs joueur = new Joueurs(persoSelect[0], Integer.decode(persoSelect[2]), Integer.decode(persoSelect[3]), null, persoSelect[1], Integer.decode(persoSelect[5]), Integer.decode(persoSelect[4]));
+                    joueur = new Joueurs(persoSelect[0], Integer.decode(persoSelect[2]), Integer.decode(persoSelect[3]), null, persoSelect[1], Integer.decode(persoSelect[5]), Integer.decode(persoSelect[4]));
                 }
 
             } catch (Exception FileNotFoundException) { //Rajouter des throw ????
@@ -300,6 +434,174 @@ public class Main {
 
         //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
         //Appliquer la méthode "setSorties()" à l'objet
+    }
+
+    public static void affichageOptions(){
+        int choix = 0;
+        Collection<Objets> objetsDansSalle = new Collection<Objets>() {
+            @Override
+            public int size() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @Override
+            public Iterator<Objets> iterator() {
+                return null;
+            }
+
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @Override
+            public <T> T[] toArray(T[] a) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Objets objets) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Objets> c) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+        };
+        Collection<Monstres> monstresDansSalle = new Collection<Monstres>() {
+            @Override
+            public int size() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @Override
+            public Iterator<Monstres> iterator() {
+                return null;
+            }
+
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @Override
+            public <T> T[] toArray(T[] a) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Monstres monstres) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Monstres> c) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+        };
+
+        for (Objets objet : tousLesObjets) {
+            if (joueur.getPieceActuelle().equals(objet.getPiece())){
+                objetsDansSalle.add(objet);
+            }
+        }
+        for (Objets objet : objetsDansSalle){
+            choix++;
+            System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+        }
+
+        for (Monstres monstre : tousLesMonstres) {
+            if (joueur.getPieceActuelle().equals(monstre.getPieceActuelle())){
+                monstresDansSalle.add(monstre);
+            }
+        }
+
+        for (Monstres monstre : monstresDansSalle) {
+            choix++;
+            System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+        }
+
+        for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
+            choix++;
+            System.out.println(choix + ". Sortir de cette pièce et emprunté la direction " + nomPassage);
+        }
+
+        if (joueur.getNombrePotionDansInventaire() > 0){
+            choix++;
+            System.out.println(choix + ". Utiliser une potion de l'inventaire");
+        }
+
     }
 
     public static void chargementMonstre(String chemin){
