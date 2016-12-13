@@ -2,6 +2,7 @@ package com.main;
 
 import com.entities.Joueurs;
 import com.environment.Pieces;
+import com.environment.items.Clés;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -60,6 +61,72 @@ public class Main {
 
         @Override
         public boolean addAll(Collection<? extends Pieces> c) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    };
+    public static Collection<Clés> porteCles = new Collection<Clés>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<Clés> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return null;
+        }
+
+        @Override
+        public boolean add(Clés clés) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends Clés> c) {
             return false;
         }
 
@@ -158,7 +225,6 @@ public class Main {
         }
     }
 
-
     public static Pieces trouverPieceParNom(String nomPiece) {
         Pieces pieceRecherche = null;
         for(Pieces piece : niveau) {
@@ -169,10 +235,19 @@ public class Main {
         return pieceRecherche;
     }
 
+    public static Clés trouveCleParPassage(String nomPassage) {
+        Clés cleRecherchee = null;
+        for(Clés cle : porteCles) {
+            if(cle.getPassageAssocie().equals(nomPassage)) {
+                cleRecherchee = cle;
+            }
+        }
+        return cleRecherchee;
+    }
+
     public static void constructionNiveau() {
 
     }
-
 
     public static void selectionMonde(){
             String cheminJeu = "";
