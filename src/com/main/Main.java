@@ -265,29 +265,20 @@ public class Main {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
                 nomJeu = br.readLine();
+                System.out.println();
                 System.out.println(nomJeu);
 
                 cheminCarte = br.readLine();
-                System.out.println(cheminCarte);
-
                 cheminObjet = br.readLine();
-                System.out.println(cheminObjet);
-
                 cheminMonstre = br.readLine();
-                System.out.println(cheminMonstre);
 
                 while ((descriptionJeu = br.readLine()) != null) {
-                    System.out.println(descriptionJeu);
+                    System.out.println("  "+descriptionJeu);
                 }
                 cheminSimple = cheminJeu.substring(0, cheminJeu.lastIndexOf('/') + 1);
                 cheminCarte = cheminSimple + cheminCarte;
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
-
-                /*System.out.println(cheminMonstre);
-                System.out.println(cheminObjet);
-                System.out.println(cheminCarte);
-                System.out.println(cheminSimple);*/
 
                 chargementMonstre(cheminMonstre);
                 chargementObjet(cheminObjet);

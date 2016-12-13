@@ -91,13 +91,13 @@ public class Joueurs extends Personnages {
         this.pointsDefense = pointsDefense;
     }
 
-    public void changerPiece(Pieces piece) {
+    /*public void changerPiece(Pieces piece) {
         if() {
             System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
             System.out.println("     " + piece.getDescription());
             this.setPieceActuelle(piece);
         }
-    }
+    } */
 
     public int getPointsDefense() {
         return this.pointsDefense;
