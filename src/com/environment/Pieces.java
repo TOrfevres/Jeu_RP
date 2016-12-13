@@ -27,11 +27,12 @@ public class Pieces {
         return this.description;
     }
 
-    //A appeller une fois que toutes les pieces ont été crées et l'appeller UNE fois par piece lors du chargement du niveau.
+    /*A appeller une fois que toutes les pieces ont été crées et l'appeller UNE fois par piece lors du chargement du niveau.
     public void setSorties() {
-        for(/*Chaque ligne décrivant une sortie*/) {
-            sorties.put("" /*Le nom du passage*/, Main.trouverPieceParNom("" /*Le nom de la piece*/));
+        for(Chaque ligne décrivant une sortie) {
+            sorties.put("" Le nom du passage, Main.trouverPieceParNom("" Le nom de la piece));
             //Si il y a un chiffre en fin de ligne on créer la clé associé à ce passage
         }
     }
+    */
 }

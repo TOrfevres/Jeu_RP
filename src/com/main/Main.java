@@ -167,6 +167,11 @@ public class Main {
     }
 
     public static void constructionNiveau() {
+        //Algo trouvant le nom de chaque salle
+            //Créer une piece pour chaque nom avec son nom et sa description
+            //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
 
+        //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
+            //Appliquer la méthode "setSorties()" à l'objet
     }
 }
