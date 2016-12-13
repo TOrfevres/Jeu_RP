@@ -417,6 +417,7 @@ public class Main {
                 chargementMonstre(cheminMonstre);
                 chargementObjet(cheminObjet);
                 chargementCarte(cheminCarte);
+                chargementSortie(cheminCarte);
 
                 retry = false;
             } catch (Exception FileNotFoundException) { // Rajouter des throw ????
@@ -641,5 +642,46 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est inchorect.");
         }
+    }
+
+    public static void chargementSortie(String chemin){
+        String ligne = "";
+        try {
+            BufferedReader carte = new BufferedReader(new FileReader(chemin));
+            while ((ligne = carte.readLine()) != null) {
+                if (ligne.equals("<")) {
+                    String nom = carte.readLine();
+                    nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
+                    Pieces maPiece = trouverPieceParNom(nom);
+
+                    //utiliser la method présente dans piece pour lier sortie a la piece
+                    carte.readLine();   //saute une ligne
+
+                    String desc = carte.readLine();                     //recup toutes la desc
+                    while (!(ligne = carte.readLine()).equals("\\")) {}
+
+                    while (!(ligne = carte.readLine()).equals(">")) {
+                        String nomPorte = ligne;
+                        String destPorte = nomPorte;
+
+                        nomPorte = nomPorte.substring(1, nomPorte.indexOf("\""));
+                        destPorte = destPorte.substring((nomPorte.length() + 4), (destPorte.lastIndexOf('»')-1));
+                        creationSorties(maPiece, nomPorte, destPorte);
+                        System.out.println(nomPorte + "<->" + destPorte);
+                     }
+
+                    niveau.add(new Pieces(nom, desc));              //creee l'entitee
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Bleu.");
+        }
+    }
+
+    public static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
+
+            maPiece.setSorties(nomSortie, Main.trouverPieceParNom(destSortie));
+            //Si il y a un chiffre en fin de ligne on créer la clé associé à ce passage
+
     }
 }
