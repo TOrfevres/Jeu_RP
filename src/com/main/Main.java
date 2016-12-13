@@ -2,6 +2,7 @@ package com.main;
 
 import com.entities.Joueurs;
 import com.environment.Pieces;
+import com.environment.items.Clés;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -80,6 +81,72 @@ public class Main {
 
         }
     };
+    public static Collection<Clés> porteCles = new Collection<Clés>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<Clés> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return null;
+        }
+
+        @Override
+        public boolean add(Clés clés) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends Clés> c) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    }
 
     static String csvFile = "";
     static Scanner sc;
@@ -165,11 +232,21 @@ public class Main {
     public static Pieces trouverPieceParNom(String nomPiece) {
         Pieces pieceRecherche = null;
         for(Pieces piece : niveau) {
-            if(piece.getNom() == nomPiece) {
+            if(piece.getNom().equals(nomPiece)) {
                 pieceRecherche = piece;
             }
         }
         return pieceRecherche;
+    }
+
+    public static Clés trouverCleParPassage(String nomPassage) {
+        Clés cleRecherchee = null;
+        for(Clés cle : porteCles) {
+            if(cle.getPassageAssocie().equals(nomPassage)) {
+                cleRecherchee = cle;
+            }
+        }
+        return cleRecherchee;
     }
 
     public static void constructionNiveau() {
@@ -178,17 +255,17 @@ public class Main {
 
 
     public static void selectionMonde(){
-            String cheminJeu = "";
-            String nomJeu = "";
-            String cheminCarte = "";
-            String cheminObjet = "";
-            String cheminMonstre = "";
-            String descriptionJeu = "";
-            String cheminSimple = "";
-            String ligne = "";
-            //boolean retry = true;
-            //Scanner sc;
-            System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
+        String cheminJeu = "";
+        String nomJeu = "";
+        String cheminCarte = "";
+        String cheminObjet = "";
+        String cheminMonstre = "";
+        String descriptionJeu = "";
+        String cheminSimple = "";
+        String ligne = "";
+        //boolean retry = true;
+        //Scanner sc;
+        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
         while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
@@ -247,12 +324,6 @@ public class Main {
 
         }
         retry =true;
-        //Algo trouvant le nom de chaque salle
-        //Créer une piece pour chaque nom avec son nom et sa description
-        //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
-
-        //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
-        //Appliquer la méthode "setSorties()" à l'objet
     }
 
 }
