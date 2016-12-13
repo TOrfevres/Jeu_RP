@@ -667,10 +667,8 @@ public class Main {
                         nomPorte = nomPorte.substring(1, nomPorte.indexOf("\""));
                         destPorte = destPorte.substring((nomPorte.length() + 4), (destPorte.lastIndexOf('»')-1));
                         creationSorties(maPiece, nomPorte, destPorte);
-                        System.out.println(nomPorte + "<->" + destPorte);
                      }
 
-                    niveau.add(new Pieces(nom, desc));              //creee l'entitee
                 }
             }
         } catch (IOException e) {
