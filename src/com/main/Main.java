@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Created by user on 12/12/2016.
  */
 public class Main {
-    public static Collection<Pieces> niveau = new Collection<Pieces>() {
+    /*public static Collection<Pieces> niveau = new Collection<Pieces>() {
         @Override
         public int size() {
             return 0;
@@ -77,18 +77,18 @@ public class Main {
         public void clear() {
 
         }
-    };
+    };*/
 
     public static void main(String[] args) {
         String line = null;                                     //Peut importe la valeur
         String cvsSplitBy = ";";                                // Separation des caracteres
         FileReader fr;
 
-        System.out.println("Saissir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
+        //System.out.println("Saissir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
         String csvFile="";
         Scanner sc;
         boolean retry=true;
-
+/*
         while (retry) {
             try { // D:/Users/Kirian/Bureau/csvtest.csv
                 BufferedReader br = new BufferedReader(new FileReader(csvFile)); // loliloll
@@ -166,7 +166,72 @@ public class Main {
         return pieceRecherche;
     }
 
-    public static void constructionNiveau() {
+    public static void constructionNiveau() {*/
+        String cheminJeu = "";
+        String nomJeu = "";
+        String cheminCarte ="";
+        String cheminObjet="";
+        String cheminMonstre="";
+        String descriptionJeu ="";
+        String cheminSimple="";
+        String ligne="";
+        //boolean retry = true;
+        //Scanner sc;
+        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
+
+        while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
+                nomJeu = br.readLine();
+                System.out.println(nomJeu);
+
+                cheminCarte = br.readLine();
+                System.out.println(cheminCarte);
+
+                cheminObjet = br.readLine();
+                System.out.println(cheminObjet);
+
+                cheminMonstre = br.readLine();
+                System.out.println(cheminMonstre);
+
+                while ((descriptionJeu = br.readLine()) != null) {
+                    System.out.println(descriptionJeu);
+                }
+                cheminSimple = cheminJeu.substring(0,cheminJeu.lastIndexOf('/')+1);
+                cheminCarte = cheminSimple + cheminCarte;
+                cheminObjet = cheminSimple + cheminObjet;
+                cheminMonstre = cheminSimple + cheminMonstre;
+
+                /*System.out.println(cheminMonstre);
+                System.out.println(cheminObjet);
+                System.out.println(cheminCarte);
+                System.out.println(cheminSimple);*/
+
+                BufferedReader monstre = new BufferedReader(new FileReader(cheminMonstre));
+                BufferedReader objet = new BufferedReader(new FileReader(cheminObjet));
+                BufferedReader carte = new BufferedReader(new FileReader(cheminCarte));
+
+                while ((ligne = carte.readLine()) != null) {
+                    int i = 0;
+                    if (ligne.equals("<")){
+                        String nom = carte.readLine();
+                        nom = nom.substring(2,(nom.length()-2));
+                        System.out.println(nom);
+                    }
+                    if (ligne.equals(">")){
+                        i++;
+
+                    }
+                }
+
+                retry=false;
+            } catch (Exception FileNotFoundException) { // Rajouter des throw ????
+                sc = new Scanner(System.in);
+                System.out.print(">");
+                cheminJeu = sc.next();
+            }
+        }
+
         //Algo trouvant le nom de chaque salle
             //Créer une piece pour chaque nom avec son nom et sa description
             //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
