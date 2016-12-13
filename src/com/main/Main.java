@@ -295,7 +295,6 @@ public class Main {
         selectionPersonnage();
     }
 
-
     public static void  selectionPersonnage(){
         System.out.println();
         System.out.println("Saisir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
@@ -377,10 +376,6 @@ public class Main {
             }
         }
         return cleRecherchee;
-    }
-
-    public static void constructionNiveau() {
-
     }
 
     public static void selectionMonde(){
@@ -677,9 +672,6 @@ public class Main {
     }
 
     public static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
-
             maPiece.setSorties(nomSortie, Main.trouverPieceParNom(destSortie));
-            //Si il y a un chiffre en fin de ligne on créer la clé associé à ce passage
-
     }
 }

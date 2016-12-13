@@ -22,7 +22,7 @@ public abstract class Objets {
             this.type = Types.Clés;
         }
         this.description = description;
-        //this.piece = Main.trouverPieceParNom(piece);
+        this.piece = Main.trouverPieceParNom(piece);
     }
 
     public String getNom(){

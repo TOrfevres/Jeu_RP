@@ -7,7 +7,6 @@ import com.environment.Pieces;
  */
 public class Monstres extends Personnages {
     public Monstres(String name, int pointsVie, int pointsAttaque, Pieces pieceActuelle) {
-        //Si le monstre n'est pas un boss, set les points de défense à 0, sinon set à une valeur proche à celle du joueur
         super(name, pointsVie, pointsAttaque, pieceActuelle);
     }
 

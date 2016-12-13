@@ -16,7 +16,6 @@ public class Pieces {
     public Pieces(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        //Main.ajouterPieceAuNiveau(this);
     }
 
     public String getNom() {

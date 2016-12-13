@@ -8,11 +8,10 @@ public class Armes extends Objets {
 
     public Armes(String nom, String type, String description, String piece, int degats) {
         super(nom, type, description, piece);
-
         this.degats = degats;
     }
 
     public int getDegats() {
         return this.degats;
-    }//k,k
+    }
 }
