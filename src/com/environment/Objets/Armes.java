@@ -16,5 +16,5 @@ public class Armes extends Objets {
 
     public int getDegats() {
         return this.degats;
-    }
+    }//FSD
 }
