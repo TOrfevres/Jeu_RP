@@ -13,7 +13,9 @@ public class Monstres extends Personnages {
 
     public void attaque(Joueurs joueur) {
         //Méthode permettant de faire attaquer le monstre
-        if(joueur.getPieceActuelle().getNom() == this.getPieceActuelle().getNom() && this.getPointsVie() > 0) {
+
+        //Si le joueur est dans la même salle que le monstre et que celui-ci est en vie, alors le monstre attaque le joueur
+        if(joueur.getPieceActuelle().getNom().equals(this.getPieceActuelle().getNom()) && this.getPointsVie() > 0) {
             int defenseAleatoire = Math.toIntExact(Math.round(Math.random() * joueur.getPointsDefense()));
             int degatsNouvelleAttaque = this.getPointsAttaque() - defenseAleatoire;
             if(degatsNouvelleAttaque <= 0) {
@@ -22,6 +24,10 @@ public class Monstres extends Personnages {
                 joueur.setPointsVie(joueur.getPointsVie() - degatsNouvelleAttaque);
                 System.out.println(this.getNom() + " vient de vous attaquer et de vous infliger " + this.getPointsAttaque() + " points de dégats.");
             }
+        } else if(!joueur.getPieceActuelle().getNom().equals(this.getPieceActuelle().getNom())) {
+            System.out.println("Erreur : Ce monstre n'est pas dans la même salle que le monstre");
+        } else if(this.getPointsVie() <= 0) {
+            System.out.println("Erreur : Ce monstre est mort");
         }
     }
 }

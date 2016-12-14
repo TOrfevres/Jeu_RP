@@ -13,7 +13,7 @@ import java.util.Iterator;
  */
 public class Joueurs extends Personnages {
     //CLASS définissant le fonctionnement d'un joueur selon ABSTRACT CLASS Personnages
-    private String metier;                                                      //Définit métier du joueur
+    private String metier;                                                      //Définit le métier du joueur
     private int placesInventaire;                                               //Nombre de place libre initialement disponible dans l'inventaire
     private int pointsDefense;                                                  //Nombre de points de défense (servant à calculer la résistance du joueur à l'attaque d'un monstre)
     private Collection<Objets> inventaire = new Collection<Objets>() {
@@ -181,6 +181,10 @@ public class Joueurs extends Personnages {
         }
     }
 
+    public boolean estDansInventaire(Objets objet) {
+        return this.inventaire.contains(objet);
+    }
+
     public void attaquer(Monstres monstre) {
         //Tant que les deux combattants sont encore en vie, le joueur attaque le monstre puis inversement
         while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
@@ -188,7 +192,8 @@ public class Joueurs extends Personnages {
             monstre.setPointsVie(monstre.getPointsVie() - this.getPointsAttaque());
             monstre.attaque(this);
         }
-        //Un fois le combat terminé,
+        //Le combat est terminé
+
         //Si le joueur est mort, alors on arrête le jeu
         if(super.getPointsVie() <= 0) {
             System.out.println("Quel cauchemar ! Vous avez perdu la vie ...");
@@ -213,6 +218,7 @@ public class Joueurs extends Personnages {
 
     @Override
     //OVERRIDE permettant d'ajouter les dégats de l'arme au dégats de base du joueur
+    //NB: On utilise les dégats bonus de l'arme la plus forte étant dans l'inventaire
     public int getPointsAttaque () {
             int maxDegats = 0;
             for (Objets objet : inventaire) {

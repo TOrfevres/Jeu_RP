@@ -573,8 +573,10 @@ public class Main {
             }
         }
         for (Objets objet : objetsDansSalle){
-            choix++;
-            System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+            if(!joueur.estDansInventaire(objet)) {
+                choix++;
+                System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+            }
         }
 
         for (Monstres monstre : tousLesMonstres) {
@@ -584,8 +586,10 @@ public class Main {
         }
 
         for (Monstres monstre : monstresDansSalle) {
-            choix++;
-            System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+            if(monstre.getPointsVie() > 0) {
+                choix++;
+                System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+            }
         }
 
         for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
