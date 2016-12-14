@@ -432,7 +432,8 @@ public class Main {
         //Appliquer la méthode "setSorties()" à l'objet
     }
 
-    public static void affichageOptions(){
+    public static void affichageOptions() {
+        //A FAIRE : Enregistrer les options de manière à pouvoir les appliquer en fonction du choix de l'utilisateur
         int choix = 0;
         Collection<Objets> objetsDansSalle = new Collection<Objets>() {
             @Override
