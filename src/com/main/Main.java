@@ -595,7 +595,7 @@ public class Main {
 
         if (joueur.getNombrePotionDansInventaire() > 0){
             choix++;
-            System.out.println(choix + ". Utiliser une potion de l'inventaire");
+            System.out.println(choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
         }
 
     }

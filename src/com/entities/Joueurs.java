@@ -12,9 +12,10 @@ import java.util.Iterator;
  * Created by user on 12/12/2016.
  */
 public class Joueurs extends Personnages {
-    private String metier;
-    private int placesInventaire;
-    private int pointsDefense;
+    //CLASS définissant le fonctionnement d'un joueur selon ABSTRACT CLASS Personnages
+    private String metier;                                                      //Définit métier du joueur
+    private int placesInventaire;                                               //Nombre de place libre initialement disponible dans l'inventaire
+    private int pointsDefense;                                                  //Nombre de points de défense (servant à calculer la résistance du joueur à l'attaque d'un monstre)
     private Collection<Objets> inventaire = new Collection<Objets>() {
         @Override
         public int size() {
@@ -80,7 +81,7 @@ public class Joueurs extends Personnages {
         public void clear() {
 
         }
-    };
+    };     //Définit les objets actuellement dans l'inventaire
 
     public Joueurs(String name, int pointsVie, int pointsAttaque, Pieces pieceActuelle, String metier, int placesInventaire, int pointsDefense) {
         super(name, pointsVie, pointsAttaque, pieceActuelle);
@@ -122,25 +123,38 @@ public class Joueurs extends Personnages {
     }
 
     public void utilisationObjet(Objets objet) {
+        //Si l'objet sélectionné est un objet du type informatif, on affiche sa description
         if(objet.getType() == Types.Inforamatif) {
-            objet.getDescription();
-        } else if(objet.getType() == Types.Obtenable && inventaire.contains(objet)) {
+            System.out.println(objet.getDescription());
+        } else
+            //Si l'objet sélectionné est récupérable et qu'il est dans l'inventaire, alors ...
+            if(objet.getType() == Types.Obtenable && inventaire.contains(objet)) {
+            //... Si c'est une arme on dit que ce n'est pas possible de l'utiliser
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
-            } else if (objet instanceof Consommables) {
+            } else
+                //... Si c'est un consommable (une potion), on redonne toute la vie au joueur
+                if (objet instanceof Consommables) {
                 System.out.println("Vous utilisez une potion et vous regagnez toute votre vie. (" + this.getPointsVie() + "->" + this.getPointsVieMax() + ")");
                 setPointsVie(this.getPointsVieMax());
                 inventaire.remove(objet);
             }
-        } else if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {
+        } else
+            //Si l'objet sélectionné est récupérable mais qu'il n'est pas dans l'inventaire, alors ...
+            if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {
+            //... Si c'est une arme, on la ramasse
             if(objet instanceof Armes) {
                 System.out.println("Vous avez ramassé une nouvelle arme : " + objet.getNom());
                 ajouterObjetAInventaire(objet);
-            } else if (objet instanceof Consommables) {
+            } else
+                //... Si c'est un consommable (une potion), on la ramasse
+                if (objet instanceof Consommables) {
                 System.out.println("Vous avez ramassé une potion !");
                 ajouterObjetAInventaire(objet);
             }
-        } else if(objet.getType() == Types.Clés) {
+        } else
+            //Si l'objet sélectionné est une clé, alors on dit que ce n'est pas possible de l'utiliser
+            if(objet.getType() == Types.Clés) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
         }
     }
@@ -168,15 +182,20 @@ public class Joueurs extends Personnages {
     }
 
     public void attaquer(Monstres monstre) {
+        //Tant que les deux combattants sont encore en vie, le joueur attaque le monstre puis inversement
         while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
             System.out.println("Vous affligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
             monstre.setPointsVie(monstre.getPointsVie() - this.getPointsAttaque());
             monstre.attaque(this);
         }
+        //Un fois le combat terminé,
+        //Si le joueur est mort, alors on arrête le jeu
         if(super.getPointsVie() <= 0) {
             System.out.println("Quel cauchemar ! Vous avez perdu la vie ...");
             System.exit(0);
-        } else if(monstre.getPointsVie() <= 0) {
+        } else
+            //Sinon si le monstre est mort, alors on affiche le nombre de points de vie qu'il reste au joueur
+            if(monstre.getPointsVie() <= 0) {
             System.out.println("Vous avez vaincu " + monstre.getNom() + " !");
             System.out.println("Il vous reste " + this.getPointsVie() + " HP.");
         }
@@ -193,6 +212,7 @@ public class Joueurs extends Personnages {
     }
 
     @Override
+    //OVERRIDE permettant d'ajouter les dégats de l'arme au dégats de base du joueur
     public int getPointsAttaque () {
             int maxDegats = 0;
             for (Objets objet : inventaire) {
