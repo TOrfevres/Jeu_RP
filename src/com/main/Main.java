@@ -3,9 +3,7 @@ package com.main;
 import com.entities.Joueurs;
 import com.entities.Monstres;
 import com.environment.Pieces;
-import com.environment.items.Clés;
-import com.environment.items.Objets;
-import com.environment.items.Types;
+import com.environment.items.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -42,7 +40,7 @@ public class Main {
             try { // D:/Users/Kirian/Bureau/csvtest.csv
                 BufferedReader br = new BufferedReader(new FileReader(csvFile));
                 int numPerso = 0;
-                int nbrPerso=-1;
+                int nbrPerso=0;
                 int annuler = 0;
                 int persoAChoisir = 0;
                 while (br.readLine() != null) {
@@ -53,7 +51,6 @@ public class Main {
                 System.out.println("-- Le Scénario comportera "+ nbrPerso +" Personnages." + '\n');
 
                 System.out.println("Sélectionner le personnage du Scénario que vous souhaitez incarner. ");
-                br.readLine();// call la premiere ligne pour la skip
 
                 while ((line = br.readLine()) != null) {               //Tant que il y a des lignes...
                     numPerso++;
@@ -78,11 +75,10 @@ public class Main {
                     }
 
                 }
-
                 if (persoAChoisir==annuler){
                     System.out.println("Vous avez annuler :( ");
                 } else {
-                    for (int k=0; k<persoAChoisir; k++) {
+                    for (int k=1; k<persoAChoisir; k++) {
                         br.readLine(); // skip les ligne contenant les perso non désirée
                     }
                     String[] persoSelect = br.readLine().split(";");
@@ -174,10 +170,9 @@ public class Main {
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
 
-
-                chargementMonstre(cheminMonstre);
                 chargementObjet(cheminObjet);
                 chargementCarte(cheminCarte);
+                chargementMonstre(cheminMonstre);
                 chargementSortie(cheminCarte);
 
                 retry = false;
@@ -190,12 +185,6 @@ public class Main {
 
         }
         retry =true;
-        //Algo trouvant le nom de chaque salle
-        //Créer une piece pour chaque nom avec son nom et sa description
-        //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
-
-        //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
-        //Appliquer la méthode "setSorties()" à l'objet
     }
 
     public static void options() {
@@ -280,16 +269,47 @@ public class Main {
 
     public static void chargementMonstre(String chemin){
         try {
-            BufferedReader monstre = new BufferedReader(new FileReader(chemin));
-        } catch (FileNotFoundException e) {
+            BufferedReader monstres = new BufferedReader(new FileReader(chemin));
+            String lineMonstre = "";
+            while ((lineMonstre = monstres.readLine()) != null) {
+                String lesMonstre[] = lineMonstre.split(cvsSplitBy);
+                int r = Math.toIntExact(Math.round(Math.random() * niveauAlpha.size()));
+                int i = -1;
+                for(Pieces maPiece : niveauAlpha) {
+                    i++;
+                    if(r == i) {
+                        tousLesMonstres.add(new Monstres(lesMonstre[0], Integer.decode(lesMonstre[1]), Integer.decode(lesMonstre[2]), maPiece));
+                    }
+                }
+            }
+        } catch (Exception FileNotFoundException) {
             System.out.println("Le nom du fichier pour les monstres spécifié dans votre texte Niveau est inchorect.");
         }
     }
 
-    public static void chargementObjet(String chemin){
+    public static void chargementObjet(String chemin) { //
         try {
             BufferedReader objet = new BufferedReader(new FileReader(chemin));
-        } catch (FileNotFoundException e) {
+            String lineObjet = "";
+            while ((lineObjet = objet.readLine()) != null) {
+                String leObjet[] = lineObjet.split(cvsSplitBy);
+                if (leObjet[3] == "C") {
+                    tousLesObjets.add(new Clés(leObjet[1], leObjet[3], leObjet[2], leObjet[0], ""));
+                } else if ((leObjet[3] == "I")) {
+                    tousLesObjets.add(new Indices(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
+                } else if ((leObjet[3] == "O")) {
+                    try {
+                        if (Integer.decode(leObjet[2]) > 0) {
+                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[2])));
+                        } else {
+                            System.out.println("Erreur : Une arme ne fait pas de dégats");
+                        }
+                    } catch (Exception e) {
+                        tousLesObjets.add(new Consommables(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
+                    }
+                }
+            }
+        } catch (Exception FileNotFoundException) {
             System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est inchorect.");
         }
     }
@@ -335,22 +355,22 @@ public class Main {
                     while (!(ligne = carte.readLine()).equals("\\")) {}
 
                     while (!(ligne = carte.readLine()).equals(">")) {
-                        String nomPorte = "";
+                        String nomPorte = ligne;
                         String destPorte = "";
-                        String presenceCle = "";
-
-                        nomPorte = ligne.substring(1, nomPorte.indexOf("\""));
+                        String presenceCle = ligne;
+                        nomPorte = ligne.substring(1, ligne.length());
+                        nomPorte = nomPorte.substring(0, nomPorte.indexOf("\""));
                         destPorte = ligne.substring(nomPorte.length() + 4, ligne.lastIndexOf("\""));
 
                         creationSorties(maPiece, nomPorte, destPorte);
-                        if (presenceCle.substring(presenceCle.lastIndexOf("\"")+1, presenceCle.length()).equals("1")){
-                            System.out.println("mes la");
-                        } else {
-                            System.out.println("non mais oh");
+
+                        if (presenceCle.substring(presenceCle.length()-1, presenceCle.length()).equals("1")){
+                            for (Clés cle: porteCles) {
+                                if (!(cle.getPassageAssocie().equals(nomPorte))){
+                                    System.out.println("Erreur : il manque une cle");
+                                }
+                            }
                         }
-                        // detecter si il y a un 1 à la fin de la ligne
-                        //Si oui, chercher si clé corresp existe
-                        // else il manque une clé
                      }
 
                 }
@@ -363,4 +383,5 @@ public class Main {
     public static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
             maPiece.setSorties(nomSortie, Main.trouverPieceParNom(destSortie));
     }
+
 }
