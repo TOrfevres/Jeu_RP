@@ -259,6 +259,24 @@ public class Main {
                 optionChoisie = 0;
             }
         }
+
+        int i = 0;
+        for(String choixOption : options.keySet()) {
+            i++;
+            if(optionChoisie == i) {
+                if(choixOption.equals("Utiliser")) {
+                    joueur.utilisationObjet(trouverObjetParNom(options.get(choixOption)));
+                } else if(choixOption.equals("Attaquer")) {
+                    joueur.attaquer(trouverMonstreParNom(options.get(choixOption)));
+                } else if(choixOption.equals("Bouger")) {
+
+                } else if(choixOption.equals("Boire")) {
+
+                } else if(choixOption.equals("Voir")) {
+
+                }
+            }
+        }
     }
 
     public static void chargementMonstre(String chemin){
