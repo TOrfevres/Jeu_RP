@@ -5,6 +5,7 @@ import com.entities.Monstres;
 import com.environment.Pieces;
 import com.environment.items.Clés;
 import com.environment.items.Objets;
+import com.environment.items.Types;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -568,11 +569,12 @@ public class Main {
         };
 
         for (Objets objet : tousLesObjets) {
-            if (joueur.getPieceActuelle().equals(objet.getPiece())){
+            if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable){
                 objetsDansSalle.add(objet);
             }
         }
-        for (Objets objet : objetsDansSalle){
+
+        for (Objets objet : objetsDansSalle) {
             if(!joueur.estDansInventaire(objet)) {
                 choix++;
                 System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
@@ -611,14 +613,14 @@ public class Main {
             System.out.println(choix + ". Voir l'inventaire");
             options.put("Voir", null);
         }
-
-        while(retry) {
+        
+        int optionChoisie = 0;
+        while(optionChoisie < 1 || optionChoisie > choix) {
             try {
-                System.out.print(">");
                 sc = new Scanner(System.in);
-                optionAChoisir = sc.nextInt();
-            } catch (Exception e) {
-                optionAChoisir = 0;
+                optionChoisie = sc.nextInt();
+            }   catch (Exception e) {
+                optionChoisie = 0;
             }
         }
 
