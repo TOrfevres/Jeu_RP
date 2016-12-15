@@ -216,6 +216,14 @@ public class Joueurs extends Personnages {
         return nombreDePotion;
     }
 
+    public int getNombreObjetsDansInventaire() {
+        int nombre = 0;
+        for(Objets objet : inventaire) {
+            nombre++;
+        }
+        return nombre;
+    }
+
     @Override
     //OVERRIDE permettant d'ajouter les dégats de l'arme au dégats de base du joueur
     //NB: On utilise les dégats bonus de l'arme la plus forte étant dans l'inventaire

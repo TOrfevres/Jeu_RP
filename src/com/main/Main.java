@@ -10,9 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static Collection<Pieces> niveau = new Collection<Pieces>() {
@@ -279,6 +277,7 @@ public class Main {
 
         }
     };
+    public static Map<String, String> options = new HashMap<>();
 
     static String csvFile = "";
     static Scanner sc;
@@ -368,7 +367,7 @@ public class Main {
         return pieceRecherche;
     }
 
-    public static Clés trouveCleParPassage(String nomPassage) {
+    public static Clés trouverCleParPassage(String nomPassage) {
         Clés cleRecherchee = null;
         for(Clés cle : porteCles) {
             if(cle.getPassageAssocie().equals(nomPassage)) {
@@ -432,7 +431,7 @@ public class Main {
         //Appliquer la méthode "setSorties()" à l'objet
     }
 
-    public static void affichageOptions() {
+    public static void options() {
         //A FAIRE : Enregistrer les options de manière à pouvoir les appliquer en fonction du choix de l'utilisateur
         int choix = 0;
         Collection<Objets> objetsDansSalle = new Collection<Objets>() {
@@ -577,6 +576,7 @@ public class Main {
             if(!joueur.estDansInventaire(objet)) {
                 choix++;
                 System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+                options.put("Utiliser", objet.getNom());
             }
         }
 
@@ -590,18 +590,38 @@ public class Main {
             if(monstre.getPointsVie() > 0) {
                 choix++;
                 System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+                options.put("Attaquer", monstre.getNom());
             }
         }
 
         for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
             choix++;
-            System.out.println(choix + ". Sortir de cette pièce et emprunté la direction " + nomPassage);
+            System.out.println(choix + ". Sortir de cette pièce et emprunter la direction " + nomPassage);
+            options.put("Bouger", nomPassage);
         }
 
         if (joueur.getNombrePotionDansInventaire() > 0){
             choix++;
             System.out.println(choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
+            options.put("Boire", null);
         }
+
+        if(joueur.getNombreObjetsDansInventaire() > 0) {
+            choix++;
+            System.out.println(choix + ". Voir l'inventaire");
+            options.put("Voir", null);
+        }
+
+        while(retry) {
+            try {
+                System.out.print(">");
+                sc = new Scanner(System.in);
+                optionAChoisir = sc.nextInt();
+            } catch (Exception e) {
+                optionAChoisir = 0;
+            }
+        }
+
 
     }
 
