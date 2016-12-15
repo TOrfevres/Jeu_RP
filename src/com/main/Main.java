@@ -5,7 +5,6 @@ import com.entities.Monstres;
 import com.environment.Pieces;
 import com.environment.items.Clés;
 import com.environment.items.Objets;
-import com.environment.items.Types;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,276 +13,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    public static Collection<Pieces> niveau = new Collection<Pieces>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @Override
-        public Iterator<Pieces> iterator() {
-            return null;
-        }
-
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Pieces pieces) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends Pieces> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-    };
-    public static Collection<Clés> porteCles = new Collection<Clés>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @Override
-        public Iterator<Clés> iterator() {
-            return null;
-        }
-
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Clés clés) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends Clés> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-    };
-    public static Collection<Objets> tousLesObjets = new Collection<Objets>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @Override
-        public Iterator<Objets> iterator() {
-            return null;
-        }
-
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Objets objets) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends Objets> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-    };
-    public static Collection<Monstres> tousLesMonstres = new Collection<Monstres>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return false;
-        }
-
-        @Override
-        public Iterator<Monstres> iterator() {
-            return null;
-        }
-
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Monstres monstres) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends Monstres> c) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-    };
-    public static Map<String, String> options = new HashMap<>();
+    public static Collection<Pieces> niveauAlpha = new ArrayList<Pieces>();
+    public static Collection<Clés> porteCles = new ArrayList<Clés>();
+    public static Collection<Objets> tousLesObjets = new ArrayList<Objets>();
+    public static Collection<Monstres> tousLesMonstres = new ArrayList<Monstres>();
 
     static String csvFile = "";
     static Scanner sc;
     static String line = null;                                     //Peut importe la valeur
-    static String cvsSplitBy = ";";                                // Séparation des caractères
+    static String cvsSplitBy = ";";                                // Separation des caracteres
     static boolean retry = true;
     static Joueurs joueur;
 
@@ -312,12 +50,12 @@ public class Main {
                 br = new BufferedReader(new FileReader(csvFile));
                 System.out.println("-- Le Scénario comportera "+ nbrPerso +" Personnages." + '\n');
 
-                System.out.println("Sélectionner le personnage du scénario que vous souhaitez incarner. ");
-                br.readLine();// appeller la premiere ligne pour la passer
+                System.out.println("Sélectionner le personnage du Scénario que vous souhaitez incarner. ");
+                br.readLine();// call la premiere ligne pour la skip
 
                 while ((line = br.readLine()) != null) {               //Tant que il y a des lignes...
                     numPerso++;
-                    String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules différentes
+                    String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules diff
                     System.out.println(numPerso+". " + lesPersos[0] + " - " + lesPersos[1] + " - " + lesPersos[2] + " HP - Def: " + lesPersos[3] + " / Atk " + lesPersos[4] + " - " + lesPersos[5] + " places d'objet ");
 
                     retry = false;
@@ -343,7 +81,7 @@ public class Main {
                     System.out.println("Vous avez annuler :( ");
                 } else {
                     for (int k=0; k<persoAChoisir; k++) {
-                        br.readLine(); // passer les lignes contenant les personnages non désirées
+                        br.readLine(); // skip les ligne contenant les perso non désirée
                     }
                     String[] persoSelect = br.readLine().split(";");
                     System.out.println("Vous avez sélectionné : " + persoSelect[0]);
@@ -356,15 +94,18 @@ public class Main {
                 csvFile = sc.next();
             }
         }
+        retry=true;
     }
 
     public static Pieces trouverPieceParNom(String nomPiece) {
         Pieces pieceRecherche = null;
-        for(Pieces piece : niveau) {
-            if(piece.getNom() == nomPiece) {
+        for(Pieces piece : niveauAlpha) {
+            if(piece.getNom().equals(nomPiece)) {
                 pieceRecherche = piece;
+
             }
         }
+
         return pieceRecherche;
     }
 
@@ -389,7 +130,7 @@ public class Main {
 
         //boolean retry = true;
         //Scanner sc;
-        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce scénario : ");
+        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
         while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
@@ -404,10 +145,13 @@ public class Main {
                 while ((descriptionJeu = br.readLine()) != null) {
                     System.out.println("  "+descriptionJeu);
                 }
-                cheminSimple = cheminJeu.substring(0, cheminJeu.lastIndexOf('/') + 1);
+
+                cheminSimple = cheminJeu.substring(0, (cheminJeu.lastIndexOf("/") + 1));
+
                 cheminCarte = cheminSimple + cheminCarte;
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
+
 
                 chargementMonstre(cheminMonstre);
                 chargementObjet(cheminObjet);
@@ -424,9 +168,9 @@ public class Main {
 
         }
         retry =true;
-        //Algo trouvant le nom de chaques salles
-        //Créer une pièce pour chaques noms avec son nom et sa description
-        //Mettre la pièce dans le niveau (ajouterPieceAuNiveau(Piece))
+        //Algo trouvant le nom de chaque salle
+        //Créer une piece pour chaque nom avec son nom et sa description
+        //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
 
         //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
         //Appliquer la méthode "setSorties()" à l'objet
@@ -435,150 +179,18 @@ public class Main {
     public static void options() {
         //A FAIRE : Enregistrer les options de manière à pouvoir les appliquer en fonction du choix de l'utilisateur
         int choix = 0;
-        Collection<Objets> objetsDansSalle = new Collection<Objets>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Objets> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Objets objets) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Objets> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-        };
-        Collection<Monstres> monstresDansSalle = new Collection<Monstres>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Monstres> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Monstres monstres) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Monstres> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-        };
+        Collection<Objets> objetsDansSalle = new ArrayList<Objets>();
+        Collection<Monstres> monstresDansSalle = new ArrayList<>();
 
         for (Objets objet : tousLesObjets) {
-            if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable){
+            if (joueur.getPieceActuelle().equals(objet.getPiece())){
                 objetsDansSalle.add(objet);
             }
         }
-
-        for (Objets objet : objetsDansSalle) {
+        for (Objets objet : objetsDansSalle){
             if(!joueur.estDansInventaire(objet)) {
                 choix++;
                 System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
-                options.put("Utiliser", objet.getNom());
             }
         }
 
@@ -592,46 +204,26 @@ public class Main {
             if(monstre.getPointsVie() > 0) {
                 choix++;
                 System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
-                options.put("Attaquer", monstre.getNom());
             }
         }
 
         for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
             choix++;
-            System.out.println(choix + ". Sortir de cette pièce et emprunter la direction " + nomPassage);
-            options.put("Bouger", nomPassage);
+            System.out.println(choix + ". Sortir de cette pièce et emprunté la direction " + nomPassage);
         }
 
         if (joueur.getNombrePotionDansInventaire() > 0){
             choix++;
             System.out.println(choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
-            options.put("Boire", null);
         }
 
-        if(joueur.getNombreObjetsDansInventaire() > 0) {
-            choix++;
-            System.out.println(choix + ". Voir l'inventaire");
-            options.put("Voir", null);
-        }
-        
-        int optionChoisie = 0;
-        while(optionChoisie < 1 || optionChoisie > choix) {
-            try {
-                sc = new Scanner(System.in);
-                optionChoisie = sc.nextInt();
-            }   catch (Exception e) {
-                optionChoisie = 0;
-            }
-        }
-
-//
     }
 
     public static void chargementMonstre(String chemin){
         try {
             BufferedReader monstre = new BufferedReader(new FileReader(chemin));
         } catch (FileNotFoundException e) {
-            System.out.println("Le nom du fichier pour les monstres spécifiés dans votre texte Niveau est incorrect.");
+            System.out.println("Le nom du fichier pour les monstres spécifié dans votre texte Niveau est inchorect.");
         }
     }
 
@@ -639,7 +231,7 @@ public class Main {
         try {
             BufferedReader objet = new BufferedReader(new FileReader(chemin));
         } catch (FileNotFoundException e) {
-            System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est incorrect.");
+            System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est inchorect.");
         }
     }
 
@@ -650,19 +242,19 @@ public class Main {
             while ((ligne = carte.readLine()) != null) {
                 if (ligne.equals("<")) {
                     String nom = carte.readLine();
-                    nom = nom.substring(1, (nom.length() - 1));       // recupérer nom pièces
-
+                    nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
                     carte.readLine();   //saute une ligne
 
-                    String desc = carte.readLine();                     //recupérer toutes la desc
+                    String desc = carte.readLine();                     //recup toutes la desc
                     while (!(ligne = carte.readLine()).equals("\\")) {
                         desc = desc + "\r\n" + ligne;
                     }
-                    niveau.add(new Pieces(nom, desc));              //créer l'entitée
+                    Pieces bjr = new Pieces(nom, desc);
+                    niveauAlpha.add(bjr);              //creee l'entitee
                 }
             }
         } catch (IOException e) {
-            System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est incorrect.");
+            System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est inchorect.");
         }
     }
 
@@ -670,31 +262,42 @@ public class Main {
         String ligne = "";
         try {
             BufferedReader carte = new BufferedReader(new FileReader(chemin));
+
             while ((ligne = carte.readLine()) != null) {
                 if (ligne.equals("<")) {
                     String nom = carte.readLine();
-                    nom = nom.substring(1, (nom.length() - 1));       // recupérer nom pièces
+                    nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
                     Pieces maPiece = trouverPieceParNom(nom);
 
-                    //utiliser la method présente dans pièce pour lier sortie à la pièce
+                    //utiliser la method présente dans piece pour lier sortie a la piece
                     carte.readLine();   //saute une ligne
 
-                    String desc = carte.readLine();                     //recupérer toutes la desc
+                    String desc = carte.readLine();                     //recup toutes la desc
                     while (!(ligne = carte.readLine()).equals("\\")) {}
 
                     while (!(ligne = carte.readLine()).equals(">")) {
-                        String nomPorte = ligne;
-                        String destPorte = nomPorte;
+                        String nomPorte = "";
+                        String destPorte = "";
+                        String presenceCle = "";
 
-                        nomPorte = nomPorte.substring(1, nomPorte.indexOf("\""));
-                        destPorte = destPorte.substring((nomPorte.length() + 4), (destPorte.lastIndexOf('»')-1));
+                        nomPorte = ligne.substring(1, nomPorte.indexOf("\""));
+                        destPorte = ligne.substring(nomPorte.length() + 4, ligne.lastIndexOf("\""));
+
                         creationSorties(maPiece, nomPorte, destPorte);
+                        if (presenceCle.substring(presenceCle.lastIndexOf("\"")+1, presenceCle.length()).equals("1")){
+                            System.out.println("mes la");
+                        } else {
+                            System.out.println("non mais oh");
+                        }
+                        // detecter si il y a un 1 a la fin de la ligne
+                        //Si oui, chercher si clé corresp existe
+                        // else il manque une clé
                      }
 
                 }
             }
         } catch (IOException e) {
-            System.out.println("Bleu.");
+            System.out.println("Il y a une erreur dans le chargement des sorties");
         }
     }
 

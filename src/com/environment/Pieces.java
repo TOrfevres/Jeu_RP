@@ -1,4 +1,6 @@
 package com.environment;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Map;
  * Created by user on 12/12/2016.
  */
 public class Pieces {
-    //CLASS definissant le fonctionnement d'une pièce
+    //CLASS definissant le fonctionnement d'une pièce.
     private String nom;                                                     //Définit le nom de la pièce
     private String description;                                             //Définit la description de la pièce
     private Map<String,Pieces> sorties = new HashMap<>();     //Détermine quels sont les passages et sorties associés à cette pièce

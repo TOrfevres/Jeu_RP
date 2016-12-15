@@ -6,7 +6,7 @@ import com.environment.Pieces;
  * Created by user on 12/12/2016.
  */
 public abstract class Personnages {
-    //ABSTRACT CLASS définissant le concept du personnage (monstres, ennemis, joueurs ...)
+    //ABSTRACT CLASS définissant le concept du personnage (monstres, ennemis, joueurs ...).
     private String nom;             //Définit Nom du personnage
     private int maxVie;             //Nombre maximum de points de vie
     private int pointsVie;          //Nombre courant de points de vie

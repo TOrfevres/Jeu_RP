@@ -7,7 +7,7 @@ import com.main.Main;
  * Created by user on 12/12/2016.
  */
 public abstract class Objets {
-    //ABSTRACT CLASS définissant le concept d'un objet (clé, arme, potion ...)
+    //ABSTRACT CLASS définissant le concept d'un objet (clé, arme, potion ...).
     private String nom;                 //Définit le nom de l'objet
     private String description;         //Définit la description de l'objet
     public Pieces piece;                //Définit la pièce où se trouve l'objet
