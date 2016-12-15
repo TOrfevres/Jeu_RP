@@ -199,7 +199,6 @@ public class Main {
     }
 
     public static void options() {
-        //A FAIRE : Enregistrer les options de manière à pouvoir les appliquer en fonction du choix de l'utilisateur
         int choix = 0;
         Collection<Objets> objetsDansSalle = new ArrayList<>();
         Collection<Monstres> monstresDansSalle = new ArrayList<>();
@@ -261,19 +260,19 @@ public class Main {
         }
 
         int i = 0;
-        for(String choixOption : options.keySet()) {
+        for(String typeOption : options.keySet()) {
             i++;
             if(optionChoisie == i) {
-                if(choixOption.equals("Utiliser")) {
-                    joueur.utilisationObjet(trouverObjetParNom(options.get(choixOption)));
-                } else if(choixOption.equals("Attaquer")) {
-                    joueur.attaquer(trouverMonstreParNom(options.get(choixOption)));
-                } else if(choixOption.equals("Bouger")) {
-
-                } else if(choixOption.equals("Boire")) {
-
-                } else if(choixOption.equals("Voir")) {
-
+                if(typeOption.equals("Utiliser")) {
+                    joueur.utilisationObjet(trouverObjetParNom(options.get(typeOption)));
+                } else if(typeOption.equals("Attaquer")) {
+                    joueur.attaquer(trouverMonstreParNom(options.get(typeOption)));
+                } else if(typeOption.equals("Bouger")) {
+                    joueur.changerPiece(trouverPieceParNom(options.get(typeOption)));
+                } else if(typeOption.equals("Boire")) {
+                    joueur.utilisationObjet(trouverObjetParNom(options.get(typeOption)));
+                } else if(typeOption.equals("Voir")) {
+                    joueur.voirInventaire();
                 }
             }
         }

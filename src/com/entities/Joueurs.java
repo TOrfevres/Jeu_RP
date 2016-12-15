@@ -168,6 +168,15 @@ public class Joueurs extends Personnages {
         return nombre;
     }
 
+    public void voirInventaire() {
+        if(inventaire.size() > 0) {
+            System.out.println("Dans votre inventaire, vous avez : ");
+            for (Objets objet : inventaire) {
+                System.out.println("- " + objet.getNom());
+            }
+        }
+    }
+
     @Override
     //OVERRIDE permettant d'ajouter les dégats de l'arme au dégats de base du joueur
     //NB: On utilise les dégats bonus de l'arme la plus forte étant dans l'inventaire
