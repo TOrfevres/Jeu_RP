@@ -7,6 +7,7 @@ import com.main.Main;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -18,6 +19,7 @@ public class Joueurs extends Personnages {
     private int placesInventaire;                                               //Nombre de place libre initialement disponible dans l'inventaire
     private int pointsDefense;                                                  //Nombre de points de défense (servant à calculer la résistance du joueur à l'attaque d'un monstre)
     private Collection<Objets> inventaire = new ArrayList<>();     //Définit les objets actuellement dans l'inventaire
+    private Collection<Pieces> piecesVisite = new ArrayList<>();
 
     public Joueurs(String name, int pointsVie, int pointsAttaque, Pieces pieceActuelle, String metier, int placesInventaire, int pointsDefense) {
         super(name, pointsVie, pointsAttaque, pieceActuelle);
@@ -42,10 +44,16 @@ public class Joueurs extends Personnages {
                 System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
                 System.out.println("     " + piece.getDescription());
                 this.setPieceActuelle(piece);
+                if (!piecesVisite.contains(piece)){
+                    piecesVisite.add(piece);
+                }
             } else if(cleAssocie != null && inventaire.contains(cleAssocie)) {
                 System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
                 System.out.println("     " + piece.getDescription());
                 this.setPieceActuelle(piece);
+                if (!piecesVisite.contains(piece)){
+                    piecesVisite.add(piece);
+                }
             } else if(cleAssocie != null && !inventaire.contains(cleAssocie)) {
                 System.out.println("Ce passage semble bloqué. Il doit y avoir une clé quelque part ...");
             }

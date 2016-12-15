@@ -349,7 +349,7 @@ public class Main {
                         } else {
                             System.out.println("non mais oh");
                         }
-                        // detecter si il y a un 1 a la fin de la ligne
+                        // detecter si il y a un 1 à la fin de la ligne
                         //Si oui, chercher si clé corresp existe
                         // else il manque une clé
                      }
