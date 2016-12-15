@@ -363,11 +363,4 @@ public class Main {
     public static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
             maPiece.setSorties(nomSortie, Main.trouverPieceParNom(destSortie));
     }
-
-    public static void getRainbowed(String message) {
-        String sortie = "";
-        for(int i = 0; i<message.length(); i++) {
-            sortie += message.charAt(i);
-        }
-    }
 }
