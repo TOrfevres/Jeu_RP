@@ -18,12 +18,14 @@ public class Main {
     public static Collection<Monstres> tousLesMonstres = new ArrayList<>();
     public static Map<String, String> options = new HashMap<>();
 
-    static String csvFile = "";
-    static Scanner sc;
-    static String line = null;                                     //Peut importe la valeur
-    static String cvsSplitBy = ";";                                // Separation des caracteres
-    static boolean retry = true;
-    static Joueurs joueur;
+    public static boolean enJeu = true;
+    private static String nomPieceDepart;
+    private static String csvFile = "";
+    private static Scanner sc;
+    private static String line = null;                                     //Peut importe la valeur
+    private static String cvsSplitBy = ";";                                // Separation des caracteres
+    private static boolean retry = true;
+    private static Joueurs joueur;
 
     public static void main(String[] args) {
         System.out.println("  << JMistery >>");
@@ -31,6 +33,22 @@ public class Main {
 
         selectionMonde();
         selectionPersonnage();
+
+        joueur.setPieceActuelle(trouverPieceParNom(nomPieceDepart));
+        System.out.println();
+        System.out.println("Vous êtes dans : " + joueur.getPieceActuelle().getNom());
+        System.out.println(joueur.getPieceActuelle().getDescription());
+
+        while(enJeu) {
+            options();
+            System.out.println();
+            for(Monstres monstre : tousLesMonstres) {
+                if(joueur.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom()) && monstre.getPointsVie() > 0) {
+                    monstre.attaque(joueur);
+                    System.out.println();
+                }
+            }
+        }
     }
 
     public static void  selectionPersonnage(){
@@ -149,7 +167,7 @@ public class Main {
         //boolean retry = true;
         //Scanner sc;
         System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
-        while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
+        while (retry) {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
                 nomJeu = br.readLine();
@@ -164,7 +182,7 @@ public class Main {
                     System.out.println("  "+descriptionJeu);
                 }
 
-                cheminSimple = cheminJeu.substring(0, (cheminJeu.lastIndexOf("/") + 1));
+                cheminSimple = cheminJeu.substring(0, (cheminJeu.lastIndexOf("\\") + 1));
 
                 cheminCarte = cheminSimple + cheminCarte;
                 cheminObjet = cheminSimple + cheminObjet;
@@ -283,7 +301,7 @@ public class Main {
                 }
             }
         } catch (Exception FileNotFoundException) {
-            System.out.println("Le nom du fichier pour les monstres spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les monstres, spécifié dans votre texte Niveau, est incorrect.");
         }
     }
 
@@ -310,19 +328,25 @@ public class Main {
                 }
             }
         } catch (Exception FileNotFoundException) {
-            System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les objets, spécifié dans votre texte Niveau, est incorrect.");
         }
     }
 
     public static void chargementCarte(String chemin){
         String ligne = "";
         try {
+            boolean doOnce = true;
             BufferedReader carte = new BufferedReader(new FileReader(chemin));
             while ((ligne = carte.readLine()) != null) {
                 if (ligne.equals("<")) {
                     String nom = carte.readLine();
                     nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
                     carte.readLine();   //saute une ligne
+
+                    if(doOnce) {
+                        nomPieceDepart = nom;
+                        doOnce = false;
+                    }
 
                     String desc = carte.readLine();                     //recup toutes la desc
                     while (!(ligne = carte.readLine()).equals("\\")) {
@@ -333,7 +357,7 @@ public class Main {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les salles, spécifié dans votre texte Niveau, est incorrect.");
         }
     }
 

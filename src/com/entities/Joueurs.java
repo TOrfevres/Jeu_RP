@@ -141,7 +141,7 @@ public class Joueurs extends Personnages {
         //Si le joueur est mort, alors on arrête le jeu
         if(super.getPointsVie() <= 0) {
             System.out.println("Quel cauchemar ! Vous avez perdu la vie ...");
-            System.exit(0);
+            Main.enJeu = false;
         } else
             //Sinon si le monstre est mort, alors on affiche le nombre de points de vie qu'il reste au joueur
             if(monstre.getPointsVie() <= 0) {
