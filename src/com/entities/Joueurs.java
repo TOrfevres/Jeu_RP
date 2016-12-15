@@ -13,7 +13,7 @@ import java.util.Iterator;
  * Created by user on 12/12/2016.
  */
 public class Joueurs extends Personnages {
-    //CLASS définissant le fonctionnement d'un joueur selon ABSTRACT CLASS Personnages
+    //CLASS définissant le fonctionnement d'un joueur selon ABSTRACT CLASS Personnages.
     private String metier;                                                      //Définit le métier du joueur
     private int placesInventaire;                                               //Nombre de place libre initialement disponible dans l'inventaire
     private int pointsDefense;                                                  //Nombre de points de défense (servant à calculer la résistance du joueur à l'attaque d'un monstre)
