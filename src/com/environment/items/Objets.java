@@ -10,7 +10,7 @@ public abstract class Objets {
     //ABSTRACT CLASS définissant le concept d'un objet (clé, arme, potion ...)
     private String nom;                 //Définit le nom de l'objet
     private String description;         //Définit la description de l'objet
-    public Pieces piece;                //Définit la piece où se trouve l'objet
+    public Pieces piece;                //Définit la pièce où se trouve l'objet
     public Types type;                  //Définit le type de l'objet (I, O ou C)
 
     public Objets(String nom, String type, String description, String piece){
