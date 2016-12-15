@@ -8,7 +8,7 @@ import com.environment.Pieces;
 public abstract class Personnages {
     //ABSTRACT CLASS définissant le concept du personnage (monstres, ennemis, joueurs ...)
     private String nom;             //Définit Nom du personnage
-    private int maxVie;             //Nombre maximum de point de vie
+    private int maxVie;             //Nombre maximum de points de vie
     private int pointsVie;          //Nombre courant de points de vie
     private int pointsAttaque;      //Nombre de points d'attaque (servant à déterminer la puissance de l'attaque du personnage)
     private Pieces pieceActuelle;   //Détermine la pièce où est actuellemnt le personnage

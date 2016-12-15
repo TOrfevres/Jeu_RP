@@ -114,7 +114,7 @@ public class Joueurs extends Personnages {
                 System.out.println("Ce passage semble bloqué. Il doit y avoir une clé quelque part ...");
             }
         } else {
-            System.out.println("Erreur : Cette piece n'est pas liée à celle où vous êtes.");
+            System.out.println("Erreur : Cette pièce n'est pas liée à celle où vous êtes.");
         }
     }
 
@@ -133,7 +133,7 @@ public class Joueurs extends Personnages {
             if(objet instanceof Armes) {
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
             } else
-                //... Si c'est un consommable (une potion), on redonne toute la vie au joueur
+                //... Si c'est un consommable (une potion), on redonne tout ses points de vie au joueur
                 if (objet instanceof Consommables) {
                 System.out.println("Vous utilisez une potion et vous regagnez toute votre vie. (" + this.getPointsVie() + "->" + this.getPointsVieMax() + ")");
                 setPointsVie(this.getPointsVieMax());
@@ -188,7 +188,7 @@ public class Joueurs extends Personnages {
     public void attaquer(Monstres monstre) {
         //Tant que les deux combattants sont encore en vie, le joueur attaque le monstre puis inversement
         while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
-            System.out.println("Vous affligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
+            System.out.println("Vous infligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
             monstre.setPointsVie(monstre.getPointsVie() - this.getPointsAttaque());
             monstre.attaque(this);
         }

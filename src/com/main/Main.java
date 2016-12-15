@@ -283,7 +283,7 @@ public class Main {
     static String csvFile = "";
     static Scanner sc;
     static String line = null;                                     //Peut importe la valeur
-    static String cvsSplitBy = ";";                                // Separation des caracteres
+    static String cvsSplitBy = ";";                                // Séparation des caractères
     static boolean retry = true;
     static Joueurs joueur;
 
@@ -312,12 +312,12 @@ public class Main {
                 br = new BufferedReader(new FileReader(csvFile));
                 System.out.println("-- Le Scénario comportera "+ nbrPerso +" Personnages." + '\n');
 
-                System.out.println("Sélectionner le personnage du Scénario que vous souhaitez incarner. ");
-                br.readLine();// call la premiere ligne pour la skip
+                System.out.println("Sélectionner le personnage du scénario que vous souhaitez incarner. ");
+                br.readLine();// appeller la premiere ligne pour la passer
 
                 while ((line = br.readLine()) != null) {               //Tant que il y a des lignes...
                     numPerso++;
-                    String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules diff
+                    String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules différentes
                     System.out.println(numPerso+". " + lesPersos[0] + " - " + lesPersos[1] + " - " + lesPersos[2] + " HP - Def: " + lesPersos[3] + " / Atk " + lesPersos[4] + " - " + lesPersos[5] + " places d'objet ");
 
                     retry = false;
@@ -343,7 +343,7 @@ public class Main {
                     System.out.println("Vous avez annuler :( ");
                 } else {
                     for (int k=0; k<persoAChoisir; k++) {
-                        br.readLine(); // skip les ligne contenant les perso non désirée
+                        br.readLine(); // passer les lignes contenant les personnages non désirées
                     }
                     String[] persoSelect = br.readLine().split(";");
                     System.out.println("Vous avez sélectionné : " + persoSelect[0]);
@@ -389,7 +389,7 @@ public class Main {
 
         //boolean retry = true;
         //Scanner sc;
-        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
+        System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce scénario : ");
         while (retry) { // D:/Users/Kirian/Bureau/niveau.txt
             try {
                 BufferedReader br = new BufferedReader(new FileReader(cheminJeu));
@@ -424,9 +424,9 @@ public class Main {
 
         }
         retry =true;
-        //Algo trouvant le nom de chaque salle
-        //Créer une piece pour chaque nom avec son nom et sa description
-        //Mettre la piece dans le niveau (ajouterPieceAuNiveau(Piece))
+        //Algo trouvant le nom de chaques salles
+        //Créer une pièce pour chaques noms avec son nom et sa description
+        //Mettre la pièce dans le niveau (ajouterPieceAuNiveau(Piece))
 
         //Algo trouvant la partie du fichier texte correspondant au nom de l'objet (boucle foreach objet dans le niveau)
         //Appliquer la méthode "setSorties()" à l'objet
@@ -609,7 +609,7 @@ public class Main {
         try {
             BufferedReader monstre = new BufferedReader(new FileReader(chemin));
         } catch (FileNotFoundException e) {
-            System.out.println("Le nom du fichier pour les monstres spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les monstres spécifiés dans votre texte Niveau est incorrect.");
         }
     }
 
@@ -617,7 +617,7 @@ public class Main {
         try {
             BufferedReader objet = new BufferedReader(new FileReader(chemin));
         } catch (FileNotFoundException e) {
-            System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les objets spécifié dans votre texte Niveau est incorrect.");
         }
     }
 
@@ -628,19 +628,19 @@ public class Main {
             while ((ligne = carte.readLine()) != null) {
                 if (ligne.equals("<")) {
                     String nom = carte.readLine();
-                    nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
+                    nom = nom.substring(1, (nom.length() - 1));       // recupérer nom pièces
 
                     carte.readLine();   //saute une ligne
 
-                    String desc = carte.readLine();                     //recup toutes la desc
+                    String desc = carte.readLine();                     //recupérer toutes la desc
                     while (!(ligne = carte.readLine()).equals("\\")) {
                         desc = desc + "\r\n" + ligne;
                     }
-                    niveau.add(new Pieces(nom, desc));              //creee l'entitee
+                    niveau.add(new Pieces(nom, desc));              //créer l'entitée
                 }
             }
         } catch (IOException e) {
-            System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est inchorect.");
+            System.out.println("Le nom du fichier pour les cartes spécifié dans votre texte Niveau est incorrect.");
         }
     }
 
@@ -651,13 +651,13 @@ public class Main {
             while ((ligne = carte.readLine()) != null) {
                 if (ligne.equals("<")) {
                     String nom = carte.readLine();
-                    nom = nom.substring(1, (nom.length() - 1));       // recup nom pieces
+                    nom = nom.substring(1, (nom.length() - 1));       // recupérer nom pièces
                     Pieces maPiece = trouverPieceParNom(nom);
 
-                    //utiliser la method présente dans piece pour lier sortie a la piece
+                    //utiliser la method présente dans pièce pour lier sortie à la pièce
                     carte.readLine();   //saute une ligne
 
-                    String desc = carte.readLine();                     //recup toutes la desc
+                    String desc = carte.readLine();                     //recupérer toutes la desc
                     while (!(ligne = carte.readLine()).equals("\\")) {}
 
                     while (!(ligne = carte.readLine()).equals(">")) {
