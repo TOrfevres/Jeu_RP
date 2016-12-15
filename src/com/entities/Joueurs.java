@@ -137,7 +137,6 @@ public class Joueurs extends Personnages {
             monstre.attaque(this);
         }
         //Le combat est terminé
-
         //Si le joueur est mort, alors on arrête le jeu
         if(super.getPointsVie() <= 0) {
             System.out.println("Quel cauchemar ! Vous avez perdu la vie ...");
