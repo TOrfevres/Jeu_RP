@@ -5,6 +5,7 @@ import com.entities.Monstres;
 import com.environment.Pieces;
 import com.environment.items.Clés;
 import com.environment.items.Objets;
+import com.environment.items.Types;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,10 +14,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    public static Collection<Pieces> niveauAlpha = new ArrayList<Pieces>();
-    public static Collection<Clés> porteCles = new ArrayList<Clés>();
-    public static Collection<Objets> tousLesObjets = new ArrayList<Objets>();
-    public static Collection<Monstres> tousLesMonstres = new ArrayList<Monstres>();
+    public static Collection<Pieces> niveauAlpha = new ArrayList<>();
+    public static Collection<Clés> porteCles = new ArrayList<>();
+    public static Collection<Objets> tousLesObjets = new ArrayList<>();
+    public static Collection<Monstres> tousLesMonstres = new ArrayList<>();
+    public static Map<String, String> options = new HashMap<>();
 
     static String csvFile = "";
     static Scanner sc;
@@ -119,6 +121,26 @@ public class Main {
         return cleRecherchee;
     }
 
+    public static Objets trouverObjetParNom(String nomObjet) {
+        Objets objetRecherche = null;
+        for(Objets objet : tousLesObjets) {
+            if(objet.getNom().equals(nomObjet)) {
+                objetRecherche = objet;
+            }
+        }
+        return objetRecherche;
+    }
+
+    public static Monstres trouverMonstreParNom(String nomMonstre) {
+        Monstres monstreRecherche = null;
+        for(Monstres monstre : tousLesMonstres) {
+            if(monstre.getNom().equals(nomMonstre)) {
+                monstreRecherche = monstre;
+            }
+        }
+        return monstreRecherche;
+    }
+
     public static void selectionMonde(){
         String cheminJeu = "";
         String nomJeu = "";
@@ -179,18 +201,20 @@ public class Main {
     public static void options() {
         //A FAIRE : Enregistrer les options de manière à pouvoir les appliquer en fonction du choix de l'utilisateur
         int choix = 0;
-        Collection<Objets> objetsDansSalle = new ArrayList<Objets>();
+        Collection<Objets> objetsDansSalle = new ArrayList<>();
         Collection<Monstres> monstresDansSalle = new ArrayList<>();
 
         for (Objets objet : tousLesObjets) {
-            if (joueur.getPieceActuelle().equals(objet.getPiece())){
+            if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable){
                 objetsDansSalle.add(objet);
             }
         }
-        for (Objets objet : objetsDansSalle){
+
+        for (Objets objet : objetsDansSalle) {
             if(!joueur.estDansInventaire(objet)) {
                 choix++;
                 System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+                options.put("Utiliser", objet.getNom());
             }
         }
 
@@ -204,19 +228,37 @@ public class Main {
             if(monstre.getPointsVie() > 0) {
                 choix++;
                 System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+                options.put("Attaquer", monstre.getNom());
             }
         }
 
         for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
             choix++;
-            System.out.println(choix + ". Sortir de cette pièce et emprunté la direction " + nomPassage);
+            System.out.println(choix + ". Sortir de cette pièce et emprunter la direction " + nomPassage);
+            options.put("Bouger", nomPassage);
         }
 
         if (joueur.getNombrePotionDansInventaire() > 0){
             choix++;
             System.out.println(choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
+            options.put("Boire", null);
         }
 
+        if(joueur.getNombreObjetsDansInventaire() > 0) {
+            choix++;
+            System.out.println(choix + ". Voir l'inventaire");
+            options.put("Voir", null);
+        }
+
+        int optionChoisie = 0;
+        while(optionChoisie < 1 || optionChoisie > choix) {
+            try {
+                sc = new Scanner(System.in);
+                optionChoisie = sc.nextInt();
+            }   catch (Exception e) {
+                optionChoisie = 0;
+            }
+        }
     }
 
     public static void chargementMonstre(String chemin){
