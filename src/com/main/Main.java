@@ -59,6 +59,7 @@ public class Main {
                 System.out.println();
                 System.out.println("Bravo, vous avez nettoyé le manoir de l'Empereur !");
                 System.out.println("Une victoire pour la résistance ! Hourra !");
+                enJeu = false;
             }
         }
     }
@@ -305,7 +306,14 @@ public class Main {
                     joueur.changerPiece(trouverPieceParNom(options.get(option).get(1)));
                 } else if(options.get(option).get(0).equals("Boire")) {
                     autoAttaqueMonstres();
-                    joueur.utilisationObjet(joueur.trouverObjetDansInventaireParNom(options.get(option).get(1)));
+                    boolean doOnce = true;
+                    List<Objets> copieInventaire = joueur.inventaire; //ON A ESSAYE DE COPIER L'INVENTAIRE POUR EVITER D'EDITER DIRECTEMENT DANS LA LISTE (BUG SOMEWHERE ...)
+                    for(Objets objet : copieInventaire) {
+                        if(doOnce && objet instanceof Consommables) {
+                            joueur.utilisationObjet(objet);
+                            doOnce = false;
+                        }
+                    }
                 } else if(options.get(option).get(0).equals("Voir")) {
                     joueur.voirInventaire();
                 }

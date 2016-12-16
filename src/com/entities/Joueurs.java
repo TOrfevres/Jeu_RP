@@ -5,10 +5,7 @@ import com.environment.items.*;
 import com.main.Main;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by user on 12/12/2016.
@@ -18,7 +15,7 @@ public class Joueurs extends Personnages {
     private String metier;                                                      //Définit le métier du joueur
     private int placesInventaire;                                               //Nombre de place libre initialement disponible dans l'inventaire
     private int pointsDefense;                                                  //Nombre de points de défense (servant à calculer la résistance du joueur à l'attaque d'un monstre)
-    private Collection<Objets> inventaire = new ArrayList<>();     //Définit les objets actuellement dans l'inventaire
+    public List<Objets> inventaire;                                             //Définit les objets actuellement dans l'inventaire
     private Collection<Pieces> piecesVisite = new ArrayList<>();
 
     public Joueurs(String name, int pointsVie, int pointsAttaque, Pieces pieceActuelle, String metier, int placesInventaire, int pointsDefense) {
@@ -27,6 +24,7 @@ public class Joueurs extends Personnages {
         this.metier = metier;
         this.placesInventaire = placesInventaire;
         this.pointsDefense = pointsDefense;
+        this.inventaire = new ArrayList<>();
     }
 
     public void changerPiece(Pieces piece) {
@@ -76,7 +74,11 @@ public class Joueurs extends Personnages {
             } else if (objet instanceof Consommables) {                                 //... Si c'est un consommable (une potion), on redonne tout ses points de vie au joueur
                 System.out.println("Vous utilisez une potion et vous regagnez toute votre vie. (" + this.getPointsVie() + "->" + this.getPointsVieMax() + ")");
                 this.setPointsVie(this.getPointsVieMax());
-                inventaire.remove(objet);
+                objet.setPiece(null);
+                System.out.println("Les potions de Rêverie ne peuvent être supprimées dans cette version.");
+                //REMOVE NE FONCTIONNE PAS, SUREMENT CAR ON NE PEUT EDITER LA LISTE SUR LA QUELLE ON FAIT UN FOR ...
+                //ON NE SAIT PAS COMMENT CORRIGER ...
+                //inventaire.remove(objet);
             }
         } else if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {  //Si l'objet sélectionné est récupérable mais qu'il n'est pas dans l'inventaire, alors ...
             if(objet instanceof Armes) {                                                //... Si c'est une arme, on la ramasse
@@ -86,7 +88,7 @@ public class Joueurs extends Personnages {
                 System.out.println("Vous avez ramassé une potion de Rêverie !");
                 ajouterObjetAInventaire(objet);
             }
-        } else if(objet.getType() == Types.Clés && !inventaire.contains(objet)) {                                      //Si l'objet sélectionné est une clé, alors on dit que ce n'est pas possible de l'utiliser
+        } else if(objet.getType() == Types.Clés && !inventaire.contains(objet)) {       //Si l'objet sélectionné est une clé, alors on dit que ce n'est pas possible de l'utiliser
                 System.out.println("Vous venez de ramasser une nouvelle clé !");
                 ajouterObjetAInventaire(objet);
         }

@@ -38,5 +38,9 @@ public abstract class Objets {
     public Pieces getPiece(){
         return this.piece;
     }
+
+    public void setPiece(Pieces piece) {
+        this.piece = piece;
+    }
 }
 
