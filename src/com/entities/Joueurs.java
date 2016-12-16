@@ -34,7 +34,7 @@ public class Joueurs extends Personnages {
             Clés cleAssocie = null;
             for(Clés cle : Main.porteCles) {
                 for(String nomPassage : this.getPieceActuelle().getSorties().keySet()) {
-                    if(cle.getPassageAssocie().equals(nomPassage)) {
+                    if(cle.getPassageAssocie().equals(nomPassage) && this.getPieceActuelle().getSorties().get(nomPassage).getNom().equals(piece.getNom())) {
                         cleAssocie = cle;
                     }
                 }
@@ -134,7 +134,9 @@ public class Joueurs extends Personnages {
         while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
             System.out.println("Vous infligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
             monstre.setPointsVie(monstre.getPointsVie() - this.getPointsAttaque());
-            monstre.attaque(this);
+            if(monstre.getPointsVie() > 0) {
+                monstre.attaque(this);
+            }
         }
         //Le combat est terminé
         //Si le joueur est mort, alors on arrête le jeu
@@ -167,6 +169,10 @@ public class Joueurs extends Personnages {
         return nombre;
     }
 
+    public Collection<Pieces> getPiecesVisite() {
+        return this.piecesVisite;
+    }
+
     public void voirInventaire() {
         if(inventaire.size() > 0) {
             System.out.println("Dans votre inventaire, vous avez : ");
@@ -174,6 +180,36 @@ public class Joueurs extends Personnages {
                 System.out.println("- " + objet.getNom());
             }
         }
+    }
+
+    public Objets trouverObjetParNomNearJoueur(String nomObjet) {
+        Objets objetRecherche = null;
+        for(Objets objet : Main.tousLesObjets) {
+            if(objet.getNom().equals(nomObjet) && this.getPieceActuelle().getNom().equals(objet.getPiece().getNom())) {
+                objetRecherche = objet;
+            }
+        }
+        return objetRecherche;
+    }
+
+    public Monstres trouverMonstreParNomNearJoueur(String nomMonstre) {
+        Monstres monstreRecherche = null;
+        for(Monstres monstre : Main.tousLesMonstres) {
+            if(monstre.getNom().equals(nomMonstre) && this.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom())) {
+                monstreRecherche = monstre;
+            }
+        }
+        return monstreRecherche;
+    }
+
+    public Objets trouverObjetDansInventaireParNom(String nomObjet) {
+        Objets objetRecherche = null;
+        for(Objets objet : inventaire) {
+            if(objet.getNom().equals(nomObjet)) {
+                objetRecherche = objet;
+            }
+        }
+        return objetRecherche;
     }
 
     @Override
