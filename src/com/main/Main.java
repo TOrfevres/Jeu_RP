@@ -1,3 +1,8 @@
+/**
+ Projet Jeu Rp du 12/12 au 16/12
+ Par Theodore, Killian, Thomas et Kirian
+*/
+
 package com.main;
 
 import com.entities.Joueurs;
@@ -6,25 +11,23 @@ import com.environment.Pieces;
 import com.environment.items.*;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    public static Collection<Pieces> niveauAlpha = new ArrayList<>();
+    private static Collection<Pieces> niveauAlpha = new ArrayList<>();
     public static Collection<Clés> porteCles = new ArrayList<>();
     public static Collection<Objets> tousLesObjets = new ArrayList<>();
     public static Collection<Monstres> tousLesMonstres = new ArrayList<>();
-    public static Map<Integer, List<String>> options = new HashMap<>();
-    public static List<String> optionsDetails = new ArrayList<>();
+    private static Map<Integer, List<String>> options = new HashMap<>();
+    private static List<String> optionsDetails = new ArrayList<>();
 
     public static boolean enJeu = true;
     private static String nomPieceDepart;
     private static String csvFile = "";
     private static Scanner sc;
-    private static String line = null;                                     //Peut importe la valeur
-    private static String cvsSplitBy = ";";                                // Separation des caracteres
+    private static String csvSplitBy = ";";                                // Separation des caracteres
     private static boolean retry = true;
     private static Joueurs joueur;
 
@@ -71,7 +74,7 @@ public class Main {
         }
     }
 
-    public static void  selectionPersonnage(){
+    private static void  selectionPersonnage(){
         System.out.println();
         System.out.println("Saisir l'emplacement du fichier de description des personnages à charger pour ce scénario : ");
         while (retry) {
@@ -90,9 +93,10 @@ public class Main {
 
                 System.out.println("Sélectionner le personnage du Scénario que vous souhaitez incarner. ");
 
+                String line = null;
                 while ((line = br.readLine()) != null) {               //Tant que il y a des lignes...
                     numPerso++;
-                    String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules diff
+                    String lesPersos[] = line.split(csvSplitBy);          // Decoupe chaque element entre ";" dans des cellules diff
                     System.out.println("  "+numPerso+". " + lesPersos[0] + " - " + lesPersos[1] + " - " + lesPersos[2] + " HP - Def: " + lesPersos[3] + " / Atk " + lesPersos[4] + " - " + lesPersos[5] + " places d'objet ");
 
                     retry = false;
@@ -176,7 +180,7 @@ public class Main {
         return monstreRecherche;
     }
 
-    public static void selectionMonde(){
+    protected static void selectionMonde(){
         String cheminJeu = "";
         String nomJeu = "";
         String cheminCarte = "";
@@ -185,8 +189,6 @@ public class Main {
         String descriptionJeu = "";
         String cheminSimple = "";
 
-        //boolean retry = true;
-        //Scanner sc;
         System.out.println("Saisissez l'emplacement du fichier de description du niveau pour ce Scénario : ");
         while (retry) {
             try {
@@ -210,8 +212,8 @@ public class Main {
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
 
-                chargementObjet(cheminObjet);
                 chargementCarte(cheminCarte);
+                chargementObjet(cheminObjet);
                 chargementMonstre(cheminMonstre);
                 chargementSortie(cheminCarte);
                 System.out.println("  -- Ce niveau contient "+ niveauAlpha.size() +" Salles, " + tousLesObjets.size()+ " Objets et "+ tousLesMonstres.size() +" Dangers.");
@@ -226,22 +228,24 @@ public class Main {
         retry =true;
     }
 
-    public static void options() {
+    private static void options() {
         int choix = 0;
 
-        for (Objets objet : tousLesObjets) { //******************************* ICI çA CHIE DANS LA COLLE *******************************
-            if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable && !joueur.estDansInventaire(objet)){
-                choix++;
-                System.out.println("  "+choix + ". Inspecter l'objet " + objet.getNom());
-                optionsDetails = new ArrayList<>();
-                optionsDetails.add("Utiliser");
-                optionsDetails.add(objet.getNom());
-                options.put(choix, optionsDetails);
+        for (Objets objet : tousLesObjets) {
+            if (joueur.getPieceActuelle().equals(objet.getPiece()) && !joueur.estDansInventaire(objet)){
+                if (objet.getType() == Types.Obtenable || objet.getType() == Types.Clés) {
+                    choix++;
+                    System.out.println("  " + choix + ". Inspecter l'objet " + objet.getNom());
+                    optionsDetails = new ArrayList<>();
+                    optionsDetails.add("Utiliser");
+                    optionsDetails.add(objet.getNom());
+                    options.put(choix, optionsDetails);
+                }
             }
         }
 
         for (Monstres monstre : tousLesMonstres) {
-            if (joueur.getPieceActuelle().equals(monstre.getPieceActuelle()) && monstre.getPointsVie() > 0){
+            if (joueur.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom()) && monstre.getPointsVie() > 0){
                 choix++;
                 System.out.println("  "+choix + ". Attaquer le danger " + monstre.getNom());
                 optionsDetails = new ArrayList<>();
@@ -293,7 +297,7 @@ public class Main {
 
         for(Integer option : options.keySet()) {
             if(optionChoisie == option) {
-                if(options.get(option).get(0).equals("Utiliser")) { //******************************* ICI çA CHIE DANS LA COLLE *******************************
+                if(options.get(option).get(0).equals("Utiliser")) {
                     autoAttaqueMonstres();
                     joueur.utilisationObjet(joueur.trouverObjetParNomNearJoueur(options.get(option).get(1)));
                 } else if(options.get(option).get(0).equals("Attaquer")) {
@@ -313,15 +317,13 @@ public class Main {
         optionsDetails.clear();
     }
 
-    public static void chargementMonstre(String chemin){
+    private static void chargementMonstre(String chemin){
         try {
             BufferedReader monstres = new BufferedReader(new FileReader(chemin));
             String lineMonstre = "";
             while ((lineMonstre = monstres.readLine()) != null) {
-                String lesMonstre[] = lineMonstre.split(cvsSplitBy);
-                //System.out.println(lesMonstre[0]);
-                //System.out.println(lesMonstre[1]);
-                //System.out.println(lesMonstre[2]);
+                String lesMonstre[] = lineMonstre.split(csvSplitBy);
+
                 int r = Math.toIntExact(Math.round(Math.random() * niveauAlpha.size()));
                 int i = -1;
                 for(Pieces maPiece : niveauAlpha) {
@@ -337,29 +339,32 @@ public class Main {
         }
     }
 
-    public static void chargementObjet(String chemin) { //
+    private static void chargementObjet(String chemin) { //
         try {
             BufferedReader objet = new BufferedReader(new FileReader(chemin));
             String lineObjet = "";
             while ((lineObjet = objet.readLine()) != null) {
-                String leObjet[] = lineObjet.split(cvsSplitBy);
-                //System.out.println(leObjet[1]);
-                if (leObjet[2].equals("C")) {
-                    Clés cle = new Clés(leObjet[1], leObjet[2], leObjet[3], leObjet[0], leObjet[3]);
-                    tousLesObjets.add(cle);
-                    porteCles.add(cle);
-                } else if ((leObjet[2].equals("I"))) {
-                    tousLesObjets.add(new Indices(leObjet[1], leObjet[2], leObjet[3], leObjet[0]));
-                } else if ((leObjet[2].equals("O"))) {
-                    try {
-                        if (Integer.decode(leObjet[3]) > 0) {
-                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[3])));
-                        } else {
-                            System.out.println("Erreur : Une arme ne fait pas de dégats");
+                String leObjet[] = lineObjet.split(csvSplitBy);
+                switch (leObjet[2]) {
+                    case "C":
+                        Clés cle = new Clés(leObjet[1], leObjet[2], leObjet[3], leObjet[0], leObjet[3]);
+                        tousLesObjets.add(cle);
+                        porteCles.add(cle);
+                        break;
+                    case "I":
+                        tousLesObjets.add(new Indices(leObjet[1], leObjet[2], leObjet[3], leObjet[0]));
+                        break;
+                    case "O":
+                        try {
+                            if (Integer.decode(leObjet[3]) > 0) {
+                                tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[3])));
+                            } else {
+                                System.out.println("Erreur : Une arme ne fait pas de dégats");
+                            }
+                        } catch (Exception e) {
+                            tousLesObjets.add(new Consommables(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
                         }
-                    } catch (Exception e) {
-                        tousLesObjets.add(new Consommables(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
-                    }
+                        break;
                 }
             }
         } catch (Exception FileNotFoundException) {
@@ -367,7 +372,7 @@ public class Main {
         }
     }
 
-    public static void chargementCarte(String chemin){
+    private static void chargementCarte(String chemin){
         String ligne = "";
         try {
             boolean doOnce = true;
@@ -396,7 +401,7 @@ public class Main {
         }
     }
 
-    public static void chargementSortie(String chemin){
+    private static void chargementSortie(String chemin){
         String ligne = "";
         try {
             BufferedReader carte = new BufferedReader(new FileReader(chemin));
@@ -422,14 +427,6 @@ public class Main {
                         destPorte = ligne.substring(nomPorte.length() + 4, ligne.lastIndexOf("\""));
 
                         creationSorties(maPiece, nomPorte, destPorte);
-
-                        if (presenceCle.substring(presenceCle.length()-1, presenceCle.length()).equals("1")){
-                            /*for (Clés cle: porteCles) {
-                                if (!(cle.getPassageAssocie().equals(nomPorte))){
-                                    System.out.println("Erreur : il manque une cle");
-                                }
-                            }*/
-                        }
                      }
 
                 }
@@ -439,7 +436,7 @@ public class Main {
         }
     }
 
-    public static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
+    private static void creationSorties(Pieces maPiece, String nomSortie, String destSortie) {
             maPiece.setSorties(nomSortie, Main.trouverPieceParNom(destSortie));
     }
 

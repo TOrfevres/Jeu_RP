@@ -62,7 +62,7 @@ public class Joueurs extends Personnages {
         }
     }
 
-    public int getPointsDefense() {
+    int getPointsDefense() {
         return this.pointsDefense;
     }
 
@@ -103,7 +103,7 @@ public class Joueurs extends Personnages {
         }
     }
 
-    public void ajouterObjetAInventaire(Objets objet) {
+    private void ajouterObjetAInventaire(Objets objet) {
         if(objet.getType() == Types.Obtenable && inventaire.size() < placesInventaire) {
             inventaire.add(objet);
             System.out.println("Vous avez ramasser un(e): " + objet.getNom());
@@ -148,7 +148,7 @@ public class Joueurs extends Personnages {
             //Sinon si le monstre est mort, alors on affiche le nombre de points de vie qu'il reste au joueur
             if(monstre.getPointsVie() <= 0) {
             System.out.println("Vous avez vaincu " + monstre.getNom() + " !");
-            System.out.print("Il vous reste " + this.getPointsVie() + " HP.");
+            System.out.println("Il vous reste " + this.getPointsVie() + " HP.");
             System.out.println();
             System.out.print("Que voulez vous faire :");
         }

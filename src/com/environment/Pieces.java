@@ -1,13 +1,8 @@
 package com.environment;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by user on 12/12/2016.
- */
 public class Pieces {
     //CLASS definissant le fonctionnement d'une pièce.
     private String nom;                                                     //Définit le nom de la pièce

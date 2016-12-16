@@ -2,9 +2,6 @@ package com.entities;
 
 import com.environment.Pieces;
 
-/**
- * Created by user on 12/12/2016.
- */
 public abstract class Personnages {
     //ABSTRACT CLASS définissant le concept du personnage (monstres, ennemis, joueurs ...).
     private String nom;             //Définit Nom du personnage
@@ -13,7 +10,7 @@ public abstract class Personnages {
     private int pointsAttaque;      //Nombre de points d'attaque (servant à déterminer la puissance de l'attaque du personnage)
     private Pieces pieceActuelle;   //Détermine la pièce où est actuellemnt le personnage
 
-    public Personnages(String nom, int pointsVie, int pointsAttaque, Pieces pieceActuelle) {
+    Personnages(String nom, int pointsVie, int pointsAttaque, Pieces pieceActuelle) {
         this.nom = nom;
         this.maxVie = pointsVie;
         this.pointsVie = pointsVie;
@@ -45,7 +42,7 @@ public abstract class Personnages {
         this.pieceActuelle = piece;
     }
 
-    public void setPointsVie(int pointsVie) {
+    void setPointsVie(int pointsVie) {
         this.pointsVie = pointsVie;
     }
 }
