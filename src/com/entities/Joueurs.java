@@ -42,14 +42,14 @@ public class Joueurs extends Personnages {
 
             if(cleAssocie == null) {
                 System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
-                System.out.println("     " + piece.getDescription());
+                System.out.print(piece.getDescription());
                 this.setPieceActuelle(piece);
                 if (!piecesVisite.contains(piece)){
                     piecesVisite.add(piece);
                 }
             } else if(cleAssocie != null && inventaire.contains(cleAssocie)) {
                 System.out.println("Vous arrivez dans la pièce suivante : " + piece.getNom());
-                System.out.println("     " + piece.getDescription());
+                System.out.print(piece.getDescription());
                 this.setPieceActuelle(piece);
                 if (!piecesVisite.contains(piece)){
                     piecesVisite.add(piece);
@@ -130,6 +130,7 @@ public class Joueurs extends Personnages {
     }
 
     public void attaquer(Monstres monstre) {
+        System.out.println("Vous rentrer en combat contre : "+ monstre.getNom());
         //Tant que les deux combattants sont encore en vie, le joueur attaque le monstre puis inversement
         while(super.getPointsVie() > 0 && monstre.getPointsVie() > 0) {
             System.out.println("Vous infligez " + this.getPointsAttaque() + " points de dégats à " + monstre.getNom());
@@ -147,7 +148,9 @@ public class Joueurs extends Personnages {
             //Sinon si le monstre est mort, alors on affiche le nombre de points de vie qu'il reste au joueur
             if(monstre.getPointsVie() <= 0) {
             System.out.println("Vous avez vaincu " + monstre.getNom() + " !");
-            System.out.println("Il vous reste " + this.getPointsVie() + " HP.");
+            System.out.print("Il vous reste " + this.getPointsVie() + " HP.");
+            System.out.println();
+            System.out.print("Que voulez vous faire :");
         }
     }
 

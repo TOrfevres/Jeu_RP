@@ -37,7 +37,7 @@ public class Main {
 
         joueur.setPieceActuelle(trouverPieceParNom(nomPieceDepart));
         System.out.println();
-        System.out.println("Vous êtes dans : " + joueur.getPieceActuelle().getNom());
+        System.out.println("Vous arrivez dans la piece suivante : " + joueur.getPieceActuelle().getNom());
         System.out.println(joueur.getPieceActuelle().getDescription());
 
         while(enJeu) {
@@ -63,7 +63,9 @@ public class Main {
     public static void autoAttaqueMonstres() {
         for(Monstres monstre : tousLesMonstres) {
             if(joueur.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom()) && monstre.getPointsVie() > 0) {
+                System.out.println(monstre.getNom() + " vous lance une attaque alors que vous fuyez :");
                 monstre.attaque(joueur);
+                System.out.println("Il vous reste" +joueur.getPointsVie());
                 System.out.println();
             }
         }
@@ -91,14 +93,14 @@ public class Main {
                 while ((line = br.readLine()) != null) {               //Tant que il y a des lignes...
                     numPerso++;
                     String lesPersos[] = line.split(cvsSplitBy);          // Decoupe chaque element entre ";" dans des cellules diff
-                    System.out.println(numPerso+". " + lesPersos[0] + " - " + lesPersos[1] + " - " + lesPersos[2] + " HP - Def: " + lesPersos[3] + " / Atk " + lesPersos[4] + " - " + lesPersos[5] + " places d'objet ");
+                    System.out.println("  "+numPerso+". " + lesPersos[0] + " - " + lesPersos[1] + " - " + lesPersos[2] + " HP - Def: " + lesPersos[3] + " / Atk " + lesPersos[4] + " - " + lesPersos[5] + " places d'objet ");
 
                     retry = false;
                 }
                 br.close();
                 br = new BufferedReader(new FileReader(csvFile));
                 annuler = numPerso+1;
-                System.out.println(annuler +". Annuler");
+                System.out.println("  "+annuler +". Annuler");
 
                 while (persoAChoisir < 1 || persoAChoisir >annuler || persoAChoisir == 0) {
 
@@ -113,13 +115,14 @@ public class Main {
                 }
                 if (persoAChoisir==annuler){
                     System.out.println("Vous avez annuler :( ");
+                    System.exit(0);
                 } else {
                     for (int k=1; k<persoAChoisir; k++) {
                         br.readLine(); // skip les ligne contenant les perso non désirée
                     }
                     String[] persoSelect = br.readLine().split(";");
                     System.out.println("Vous avez sélectionné : " + persoSelect[0]);
-                    joueur = new Joueurs(persoSelect[0], Integer.decode(persoSelect[2]), Integer.decode(persoSelect[3]), null, persoSelect[1], Integer.decode(persoSelect[5]), Integer.decode(persoSelect[4]));
+                    joueur = new Joueurs(persoSelect[0], Integer.decode(persoSelect[2]), Integer.decode(persoSelect[4]), null, persoSelect[1], Integer.decode(persoSelect[5]), Integer.decode(persoSelect[3]));
                 }
 
             } catch (Exception FileNotFoundException) { //Rajouter des throw ????
@@ -200,6 +203,7 @@ public class Main {
                     System.out.println("  "+descriptionJeu);
                 }
 
+
                 cheminSimple = cheminJeu.substring(0, (cheminJeu.lastIndexOf("\\") + 1));
 
                 cheminCarte = cheminSimple + cheminCarte;
@@ -210,6 +214,7 @@ public class Main {
                 chargementCarte(cheminCarte);
                 chargementMonstre(cheminMonstre);
                 chargementSortie(cheminCarte);
+                System.out.println("  -- Ce niveau contient "+ niveauAlpha.size() +" Salles, " + tousLesObjets.size()+ " Objets et "+ tousLesMonstres.size() +" Dangers.");
 
                 retry = false;
             } catch (Exception FileNotFoundException) { // Rajouter des throw ????
@@ -217,8 +222,6 @@ public class Main {
                 System.out.print(">");
                 cheminJeu = sc.next();
             }
-
-
         }
         retry =true;
     }
@@ -229,7 +232,7 @@ public class Main {
         for (Objets objet : tousLesObjets) { //******************************* ICI çA CHIE DANS LA COLLE *******************************
             if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable && !joueur.estDansInventaire(objet)){
                 choix++;
-                System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+                System.out.println("  "+choix + ". Inspecter l'objet " + objet.getNom());
                 optionsDetails = new ArrayList<>();
                 optionsDetails.add("Utiliser");
                 optionsDetails.add(objet.getNom());
@@ -240,7 +243,7 @@ public class Main {
         for (Monstres monstre : tousLesMonstres) {
             if (joueur.getPieceActuelle().equals(monstre.getPieceActuelle()) && monstre.getPointsVie() > 0){
                 choix++;
-                System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
+                System.out.println("  "+choix + ". Attaquer le danger " + monstre.getNom());
                 optionsDetails = new ArrayList<>();
                 optionsDetails.add("Attaquer");
                 optionsDetails.add(monstre.getNom());
@@ -250,7 +253,7 @@ public class Main {
 
         for (String nomPassage : joueur.getPieceActuelle().getSorties().keySet()){
             choix++;
-            System.out.println(choix + ". Sortir de cette pièce et emprunter la direction " + nomPassage);
+            System.out.println("  "+choix + ". Sortir de cette pièce et emprunter la direction " + nomPassage);
             optionsDetails = new ArrayList<>();
             optionsDetails.add("Bouger");
             optionsDetails.add(joueur.getPieceActuelle().getSorties().get(nomPassage).getNom());
@@ -259,7 +262,7 @@ public class Main {
 
         if (joueur.getNombrePotionDansInventaire() > 0){
             choix++;
-            System.out.println(choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
+            System.out.println("  "+choix + ". Utiliser une potion de l'inventaire (Vos HP: " + joueur.getPointsVie() + "/" + joueur.getPointsVieMax() + ")");
             optionsDetails = new ArrayList<>();
             optionsDetails.add("Boire");
             optionsDetails.add(null);
@@ -268,7 +271,7 @@ public class Main {
 
         if(joueur.getNombreObjetsDansInventaire() > 0) {
             choix++;
-            System.out.println(choix + ". Voir l'inventaire");
+            System.out.println("  "+choix + ". Voir l'inventaire");
             optionsDetails = new ArrayList<>();
             optionsDetails.add("Voir");
             optionsDetails.add(null);
@@ -278,7 +281,7 @@ public class Main {
         int optionChoisie = 0;
         while(optionChoisie < 1 || optionChoisie > choix) {
             try {
-                System.out.print(":");
+                System.out.print(">");
                 sc = new Scanner(System.in);
                 optionChoisie = sc.nextInt();
             }   catch (Exception e) {
@@ -316,6 +319,9 @@ public class Main {
             String lineMonstre = "";
             while ((lineMonstre = monstres.readLine()) != null) {
                 String lesMonstre[] = lineMonstre.split(cvsSplitBy);
+                //System.out.println(lesMonstre[0]);
+                //System.out.println(lesMonstre[1]);
+                //System.out.println(lesMonstre[2]);
                 int r = Math.toIntExact(Math.round(Math.random() * niveauAlpha.size()));
                 int i = -1;
                 for(Pieces maPiece : niveauAlpha) {
@@ -325,6 +331,7 @@ public class Main {
                     }
                 }
             }
+
         } catch (Exception FileNotFoundException) {
             System.out.println("Le nom du fichier pour les monstres, spécifié dans votre texte Niveau, est incorrect.");
         }
@@ -336,16 +343,17 @@ public class Main {
             String lineObjet = "";
             while ((lineObjet = objet.readLine()) != null) {
                 String leObjet[] = lineObjet.split(cvsSplitBy);
-                if (leObjet[3] == "C") {
-                    Clés cle = new Clés(leObjet[1], leObjet[3], leObjet[2], leObjet[0], "");
+                //System.out.println(leObjet[1]);
+                if (leObjet[2].equals("C")) {
+                    Clés cle = new Clés(leObjet[1], leObjet[2], leObjet[3], leObjet[0], leObjet[3]);
                     tousLesObjets.add(cle);
                     porteCles.add(cle);
-                } else if ((leObjet[3] == "I")) {
-                    tousLesObjets.add(new Indices(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
-                } else if ((leObjet[3] == "O")) {
+                } else if ((leObjet[2].equals("I"))) {
+                    tousLesObjets.add(new Indices(leObjet[1], leObjet[2], leObjet[3], leObjet[0]));
+                } else if ((leObjet[2].equals("O"))) {
                     try {
-                        if (Integer.decode(leObjet[2]) > 0) {
-                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[2])));
+                        if (Integer.decode(leObjet[3]) > 0) {
+                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[3])));
                         } else {
                             System.out.println("Erreur : Une arme ne fait pas de dégats");
                         }
@@ -416,11 +424,11 @@ public class Main {
                         creationSorties(maPiece, nomPorte, destPorte);
 
                         if (presenceCle.substring(presenceCle.length()-1, presenceCle.length()).equals("1")){
-                            for (Clés cle: porteCles) {
+                            /*for (Clés cle: porteCles) {
                                 if (!(cle.getPassageAssocie().equals(nomPorte))){
                                     System.out.println("Erreur : il manque une cle");
                                 }
-                            }
+                            }*/
                         }
                      }
 
