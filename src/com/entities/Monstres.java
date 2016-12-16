@@ -22,10 +22,10 @@ public class Monstres extends Personnages {
                 System.out.println("Vous venez d'esquiver l'attaque venant de " + this.getNom() + " !");
             } else if (degatsNouvelleAttaque > 0) {
                 joueur.setPointsVie(joueur.getPointsVie() - degatsNouvelleAttaque);
-                System.out.println(this.getNom() + " vient de vous attaquer et de vous infliger " + this.getPointsAttaque() + " points de dégats.");
+                System.out.println(this.getNom() + " vient de vous attaquer et de vous infliger " + degatsNouvelleAttaque + " points de dégats.");
             }
         } else if(!joueur.getPieceActuelle().getNom().equals(this.getPieceActuelle().getNom())) {
-            System.out.println("Erreur : Ce monstre n'est pas dans la même salle que le monstre");
+            System.out.println("Erreur : Ce monstre n'est pas dans la même salle que le joueur");
         } else if(this.getPointsVie() <= 0) {
             System.out.println("Erreur : Ce monstre est mort");
         }

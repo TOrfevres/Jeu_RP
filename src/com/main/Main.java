@@ -206,8 +206,8 @@ public class Main {
                 cheminObjet = cheminSimple + cheminObjet;
                 cheminMonstre = cheminSimple + cheminMonstre;
 
-                chargementObjet(cheminObjet);
                 chargementCarte(cheminCarte);
+                chargementObjet(cheminObjet);
                 chargementMonstre(cheminMonstre);
                 chargementSortie(cheminCarte);
 
@@ -226,19 +226,21 @@ public class Main {
     public static void options() {
         int choix = 0;
 
-        for (Objets objet : tousLesObjets) { //******************************* ICI çA CHIE DANS LA COLLE *******************************
-            if (joueur.getPieceActuelle().equals(objet.getPiece()) && objet.getType() == Types.Obtenable && !joueur.estDansInventaire(objet)){
-                choix++;
-                System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
-                optionsDetails = new ArrayList<>();
-                optionsDetails.add("Utiliser");
-                optionsDetails.add(objet.getNom());
-                options.put(choix, optionsDetails);
+        for (Objets objet : tousLesObjets) {
+            if (joueur.getPieceActuelle().equals(objet.getPiece()) && !joueur.estDansInventaire(objet)){
+                if(objet.getType() == Types.Obtenable || objet.getType() == Types.Clés) {
+                    choix++;
+                    System.out.println(choix + ". Inspecter l'objet " + objet.getNom());
+                    optionsDetails = new ArrayList<>();
+                    optionsDetails.add("Utiliser");
+                    optionsDetails.add(objet.getNom());
+                    options.put(choix, optionsDetails);
+                }
             }
         }
 
         for (Monstres monstre : tousLesMonstres) {
-            if (joueur.getPieceActuelle().equals(monstre.getPieceActuelle()) && monstre.getPointsVie() > 0){
+            if (joueur.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom()) && monstre.getPointsVie() > 0){
                 choix++;
                 System.out.println(choix + ". Attaquer le danger " + monstre.getNom());
                 optionsDetails = new ArrayList<>();
@@ -290,7 +292,7 @@ public class Main {
 
         for(Integer option : options.keySet()) {
             if(optionChoisie == option) {
-                if(options.get(option).get(0).equals("Utiliser")) { //******************************* ICI çA CHIE DANS LA COLLE *******************************
+                if(options.get(option).get(0).equals("Utiliser")) {
                     autoAttaqueMonstres();
                     joueur.utilisationObjet(joueur.trouverObjetParNomNearJoueur(options.get(option).get(1)));
                 } else if(options.get(option).get(0).equals("Attaquer")) {
@@ -336,16 +338,17 @@ public class Main {
             String lineObjet = "";
             while ((lineObjet = objet.readLine()) != null) {
                 String leObjet[] = lineObjet.split(cvsSplitBy);
-                if (leObjet[3] == "C") {
-                    Clés cle = new Clés(leObjet[1], leObjet[3], leObjet[2], leObjet[0], "");
+                //System.out.println(leObjet[1]);
+                if (leObjet[2].equals("C")) {
+                    Clés cle = new Clés(leObjet[1], leObjet[2], leObjet[3], leObjet[0], leObjet[3]);
                     tousLesObjets.add(cle);
                     porteCles.add(cle);
-                } else if ((leObjet[3] == "I")) {
-                    tousLesObjets.add(new Indices(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
-                } else if ((leObjet[3] == "O")) {
+                } else if ((leObjet[2].equals("I"))) {
+                    tousLesObjets.add(new Indices(leObjet[1], leObjet[2], leObjet[3], leObjet[0]));
+                } else if ((leObjet[2].equals("O"))) {
                     try {
-                        if (Integer.decode(leObjet[2]) > 0) {
-                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[2])));
+                        if (Integer.decode(leObjet[3]) > 0) {
+                            tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[3])));
                         } else {
                             System.out.println("Erreur : Une arme ne fait pas de dégats");
                         }
@@ -416,8 +419,11 @@ public class Main {
                         creationSorties(maPiece, nomPorte, destPorte);
 
                         if (presenceCle.substring(presenceCle.length()-1, presenceCle.length()).equals("1")){
+                            System.out.println(presenceCle.substring(presenceCle.length()-1, presenceCle.length()));
+                            System.out.println(nomPorte);
                             for (Clés cle: porteCles) {
                                 if (!(cle.getPassageAssocie().equals(nomPorte))){
+                                    System.out.println(cle.getPassageAssocie());
                                     System.out.println("Erreur : il manque une cle");
                                 }
                             }
