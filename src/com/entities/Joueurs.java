@@ -70,44 +70,32 @@ public class Joueurs extends Personnages {
         //Si l'objet sélectionné est un objet du type informatif, on affiche sa description
         if(objet.getType() == Types.Inforamatif) {
             System.out.println(objet.getDescription());
-        } else
-            //Si l'objet sélectionné est récupérable et qu'il est dans l'inventaire, alors ...
-            if(objet.getType() == Types.Obtenable && inventaire.contains(objet)) {
-            //... Si c'est une arme on dit que ce n'est pas possible de l'utiliser
-            if(objet instanceof Armes) {
+        } else if(objet.getType() == Types.Obtenable && inventaire.contains(objet)) {   //Si l'objet sélectionné est récupérable et qu'il est dans l'inventaire, alors ...
+            if(objet instanceof Armes) {                                                //... Si c'est une arme on dit que ce n'est pas possible de l'utiliser
                 System.out.println("Vous ne pouvez pas utiliser cet objet !");
-            } else
-                //... Si c'est un consommable (une potion), on redonne tout ses points de vie au joueur
-                if (objet instanceof Consommables) {
+            } else if (objet instanceof Consommables) {                                 //... Si c'est un consommable (une potion), on redonne tout ses points de vie au joueur
                 System.out.println("Vous utilisez une potion et vous regagnez toute votre vie. (" + this.getPointsVie() + "->" + this.getPointsVieMax() + ")");
-                setPointsVie(this.getPointsVieMax());
+                this.setPointsVie(this.getPointsVieMax());
                 inventaire.remove(objet);
             }
-        } else
-            //Si l'objet sélectionné est récupérable mais qu'il n'est pas dans l'inventaire, alors ...
-            if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {
-            //... Si c'est une arme, on la ramasse
-            if(objet instanceof Armes) {
+        } else if(objet.getType() == Types.Obtenable && !inventaire.contains(objet)) {  //Si l'objet sélectionné est récupérable mais qu'il n'est pas dans l'inventaire, alors ...
+            if(objet instanceof Armes) {                                                //... Si c'est une arme, on la ramasse
                 System.out.println("Vous avez ramassé une nouvelle arme : " + objet.getNom());
                 ajouterObjetAInventaire(objet);
-            } else
-                //... Si c'est un consommable (une potion), on la ramasse
-                if (objet instanceof Consommables) {
-                System.out.println("Vous avez ramassé une potion !");
+            } else if (objet instanceof Consommables) {                                 //... Si c'est un consommable (une potion), on la ramasse
+                System.out.println("Vous avez ramassé une potion de Rêverie !");
                 ajouterObjetAInventaire(objet);
             }
-        } else
-            //Si l'objet sélectionné est une clé, alors on dit que ce n'est pas possible de l'utiliser
-            if(objet.getType() == Types.Clés) {
-                System.out.println("Vous ne pouvez pas utiliser cet objet !");
+        } else if(objet.getType() == Types.Clés && !inventaire.contains(objet)) {                                      //Si l'objet sélectionné est une clé, alors on dit que ce n'est pas possible de l'utiliser
+                System.out.println("Vous venez de ramasser une nouvelle clé !");
+                ajouterObjetAInventaire(objet);
         }
     }
 
     private void ajouterObjetAInventaire(Objets objet) {
-        if(objet.getType() == Types.Obtenable && inventaire.size() < placesInventaire) {
+        if(objet.getType() != Types.Inforamatif && inventaire.size() < placesInventaire && !inventaire.contains(objet)) {
             inventaire.add(objet);
-            System.out.println("Vous avez ramasser un(e): " + objet.getNom());
-        } else if (objet.getType() != Types.Obtenable){
+        } else if (objet.getType() == Types.Inforamatif){
             System.out.println("Vous ne pouvez pas ramasser cet objet !");
         } else if(inventaire.size() >= placesInventaire){
             System.out.println("Votre inventaire est plein ...");

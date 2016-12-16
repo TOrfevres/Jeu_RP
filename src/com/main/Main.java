@@ -63,12 +63,12 @@ public class Main {
         }
     }
 
-    public static void autoAttaqueMonstres() {
+    private static void autoAttaqueMonstres() {
         for(Monstres monstre : tousLesMonstres) {
             if(joueur.getPieceActuelle().getNom().equals(monstre.getPieceActuelle().getNom()) && monstre.getPointsVie() > 0) {
                 System.out.println(monstre.getNom() + " vous lance une attaque alors que vous fuyez :");
                 monstre.attaque(joueur);
-                System.out.println("Il vous reste" +joueur.getPointsVie());
+                System.out.println("Il vous reste " +joueur.getPointsVie() + " HP.");
                 System.out.println();
             }
         }
@@ -180,7 +180,7 @@ public class Main {
         return monstreRecherche;
     }
 
-    protected static void selectionMonde(){
+    private static void selectionMonde(){
         String cheminJeu = "";
         String nomJeu = "";
         String cheminCarte = "";
@@ -233,14 +233,12 @@ public class Main {
 
         for (Objets objet : tousLesObjets) {
             if (joueur.getPieceActuelle().equals(objet.getPiece()) && !joueur.estDansInventaire(objet)){
-                if (objet.getType() == Types.Obtenable || objet.getType() == Types.Clés) {
-                    choix++;
-                    System.out.println("  " + choix + ". Inspecter l'objet " + objet.getNom());
-                    optionsDetails = new ArrayList<>();
-                    optionsDetails.add("Utiliser");
-                    optionsDetails.add(objet.getNom());
-                    options.put(choix, optionsDetails);
-                }
+                choix++;
+                System.out.println("  " + choix + ". Inspecter l'objet " + objet.getNom());
+                optionsDetails = new ArrayList<>();
+                optionsDetails.add("Utiliser");
+                optionsDetails.add(objet.getNom());
+                options.put(choix, optionsDetails);
             }
         }
 
@@ -357,12 +355,12 @@ public class Main {
                     case "O":
                         try {
                             if (Integer.decode(leObjet[3]) > 0) {
-                                tousLesObjets.add(new Armes(leObjet[1], leObjet[3], leObjet[2], leObjet[0], Integer.decode(leObjet[3])));
+                                tousLesObjets.add(new Armes(leObjet[1], leObjet[2], leObjet[3], leObjet[0], Integer.decode(leObjet[3])));
                             } else {
                                 System.out.println("Erreur : Une arme ne fait pas de dégats");
                             }
                         } catch (Exception e) {
-                            tousLesObjets.add(new Consommables(leObjet[1], leObjet[3], leObjet[2], leObjet[0]));
+                            tousLesObjets.add(new Consommables(leObjet[1], leObjet[2], leObjet[3], leObjet[0]));
                         }
                         break;
                 }
