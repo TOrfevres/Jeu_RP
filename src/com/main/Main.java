@@ -37,7 +37,7 @@ public class Main {
 
         joueur.setPieceActuelle(trouverPieceParNom(nomPieceDepart));
         System.out.println();
-        System.out.println("Vous arrivez dans la piece suivante : " + joueur.getPieceActuelle().getNom());
+        System.out.println("Vous arrivez dans la piece : " + joueur.getPieceActuelle().getNom());
         System.out.println(joueur.getPieceActuelle().getDescription());
 
         while(enJeu) {
